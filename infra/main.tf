@@ -10,6 +10,5 @@ module "storage_account" {
   storage_account_name = "storageaccountgit"
   storage_account_location = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  
-  
+    
 }
