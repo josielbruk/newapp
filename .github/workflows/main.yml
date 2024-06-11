@@ -29,7 +29,7 @@ jobs:
       - run: echo "The workflow is now ready to test your code on the runner"
 
       - name: Conditional step event name is pull request
-        if: ${{ github.event_name == 'pull_request' }}
+        if: github.event_name == 'pull_request'
         run: echo "This event is a pull request."
 
       - name: List files in the repository
