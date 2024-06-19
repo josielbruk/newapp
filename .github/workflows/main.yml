@@ -60,7 +60,9 @@ jobs:
 
     - name: 'Az CLI login'
       uses: azure/login@v1
-      
+      with:
+        creds: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
+
     - name: Publish
       run: dotnet publish ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj -c Release --output ./publish/
 
