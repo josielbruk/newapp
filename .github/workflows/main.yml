@@ -1,60 +1,61 @@
-name: Github Actions Demo
+name: Build and deploy ASP.Net Core app to an Azure Web App
 
-on: push
+env:
+  AZURE_WEBAPP_NAME: your-app-name    # set this to the name of your Azure Web App
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
+  TAG: ${{ github.RUN_NUMBER }}
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: 
+      - 'app/**'
+  pull_request:
+    branches: [ "main" ]
+    paths: 
+      - 'app/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  Example-Actions-Job:
-    name: Exploring Github Actions
+  # build:
+  # runs-on: ubuntu-latest
+  job:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      # Display the current event that triggered the workflow
-      - run: echo "The job was trigged by a ${{ github.event_name }} event."
+  
+    - uses: actions/checkout@v4
 
-      # Runner information
-      - run: echo "This job is now running on a ${{ runner.os }} server hosted by github"
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - run: echo "This job is now running on a ${{ runner.name }} server name"
+    - name: Restore dependencies
+      run: dotnet restore ${{ github.workspace }}/app/src/RazorPagesTestSample/RazorPagesTestSample.sln
+      shell: /usr/bin/bash -e {0}
+      # env:
+      #   AZURE_WEBAPP_NAME: your-app-name
+      #   AZURE_WEBAPP_PACKAGE_PATH: .
+      #   DOTNET_VERSION: 6.0.x
+      #   DOTNET_ROOT: /home/runner/.dotnet
 
-      # Information about the repository and branch
-      - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}"
+    - name: Build with dotnet
+      run: dotnet build ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj
 
-      # Use Action located in https://github.com/actions
-      - name: Acheck out repository code
-        uses: actions/checkout@v4
+    - name: dotnet test
+      run: dotnet test ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj --configuration Release
 
-      - run: echo "The ${{ github.repository }} repository has been cloned to the runner."
+    - name: Publish
+      run: dotnet publish --output ./publish/
 
-      - run: echo "Your repository has been copied to the path ${{ github.worspace }} on the runner."
-
-      - run: echo "The workflow is now ready to test your code on the runner"
-
-      - name: Conditional step event name is pull request
-        if: github.event_name == 'pull_request'
-        run: echo "This event is a pull request."
-
-      - name: List files in the repository
-        run: |
-          ls -R ${{ github.workspace }}
-      - name: Setup dotnet on runner
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '8.x'
-      
-      - name: Display dotnet version
-        run: dotnet --version
-
-      - name: List files in tool cache
-        run: |
-          ls ${{ runner.tool_cache }}
-
-      - run: echo "This job's status is ${{ job.status }}."
-
-  Second-job:
-    name: The second job running on another runner
-    runs-on:  ubuntu-latest
-    needs: Example-Actions-Job
-    steps:
-      - run: echo "This job is now running on a ${{ runner.os }} server OS"
-
-      - run: echo "This job is now running on a ${{ runner.name }} server name"
-      
+    - name: Publish Artifact to Azure DevOps
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az artifacts universal publish --organization "https://dev.azure.com/josielbruk/" --project "newapp" --scope project --feed "josielbruk" --name "my-first-package" --version "0.0.1" --description "Just a Package Description" --path "./publish/"
+        azcliVersion: '2.0.80'
