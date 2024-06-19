@@ -11,16 +11,18 @@ pool:
 
 steps:
   - script: |
+      az login --identity
       az artifacts universal download \
       --organization "https://dev.azure.com/josielbruk/" \
       --feed "josielbruk" \
       --name "my-first-package" \
       --version "0.0.1" \
       --path $(System.ArtifactsDirectory)
+    displayName: 'Download the artifact'
 
   - script: |
       echo "Listing files"
       ls $(System.ArtifactsDirectory)
-    displayName: 'Run a one-line script'
+    displayName: 'Listing the content of the folder: $(System.ArtifactsDirectory)'
 
 
