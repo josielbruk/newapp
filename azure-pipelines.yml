@@ -10,14 +10,13 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  - task: UniversalPackages@0
-    inputs:
-      command: 'download'
-      downloadDirectory: '$(System.ArtifactsDirectory)' # The directory to place the downloaded package
-      feed: 'josielbruk' # The name of your feed
-      # view: 'myView' # The view within the feed to download the package from
-      name: 'my-first-package' # The name of the package to download
-      version: '0.0.1' # The version of the package to download
+  - script: |
+      az artifacts universal download \
+      --organization "https://dev.azure.com/josielbruk/" \
+      --feed "josielbruk" \
+      --name "my-first-package" \
+      --version "0.0.1" \
+      --path $(System.ArtifactsDirectory)
 
   - script: |
       echo "Listing files"
