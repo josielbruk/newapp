@@ -22,16 +22,16 @@ steps:
         export FEDERATED_TOKEN=$(curl -H "Authorization: Bearer $SYSTEM_ACCESSTOKEN" -H "Content-Type: application/json" -X POST -d '{"client_id":"'$AZURE_CLIENT_ID'","scope":"api://AzureADTokenExchange/.default","grant_type":"urn:ietf:params:oauth:grant-type:jwt-bearer","requested_token_use":"on_behalf_of","assertion":"'$SYSTEM_ACCESSTOKEN'"}' https://login.microsoftonline.com/$AZURE_TENANT_ID/oauth2/v2.0/token | jq -r .access_token)
         echo "##vso[task.setvariable variable=FEDERATED_TOKEN;issecret=true]$FEDERATED_TOKEN"
 
-  - script: |
-    env:
-      # oidc token
-      FEDERATED_TOKEN: $(FEDERATED_TOKEN)
+  - script: |    
       az artifacts universal download \
       --organization "https://dev.azure.com/josielbruk/" \
       --feed "josielbruk" \
       --name "my-first-package" \
       --version "0.0.1" \
       --path $(System.ArtifactsDirectory)
+    env:
+      # oidc token
+      FEDERATED_TOKEN: $(FEDERATED_TOKEN)
     displayName: 'Download the artifact'
 
   - script: |
