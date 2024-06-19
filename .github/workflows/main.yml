@@ -64,6 +64,8 @@ jobs:
 
     - name: Publish Artifact to Azure DevOps
       uses: azure/CLI@v1
+      env:
+        AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
       with:
         inlineScript: |
           az artifacts universal publish --organization "https://dev.azure.com/josielbruk/" --project "newapp" --scope project --feed "josielbruk" --name "my-first-package" --version "0.0.1" --description "Just a Package Description" --path "./publish/"
