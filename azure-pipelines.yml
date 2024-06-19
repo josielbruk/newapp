@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  - main
 
 pool:
   vmImage: ubuntu-latest
@@ -13,16 +13,16 @@ steps:
   # authenticate with Azure using OIDC
   - task: AzureCLI@2
     inputs:
-      azureSubscription: 'Azure Subs OIDC'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
+      azureSubscription: "Azure Subs OIDC"
+      scriptType: "bash"
+      scriptLocation: "inlineScript"
       inlineScript: |
         export AZURE_CLIENT_ID=$(az account show --query user.name -o tsv)
         export AZURE_TENANT_ID=$(az account show --query tenantId -o tsv)
         export FEDERATED_TOKEN=$(curl -H "Authorization: Bearer $SYSTEM_ACCESSTOKEN" -H "Content-Type: application/json" -X POST -d '{"client_id":"'$AZURE_CLIENT_ID'","scope":"api://AzureADTokenExchange/.default","grant_type":"urn:ietf:params:oauth:grant-type:jwt-bearer","requested_token_use":"on_behalf_of","assertion":"'$SYSTEM_ACCESSTOKEN'"}' https://login.microsoftonline.com/$AZURE_TENANT_ID/oauth2/v2.0/token | jq -r .access_token)
         echo "##vso[task.setvariable variable=FEDERATED_TOKEN;issecret=true]$FEDERATED_TOKEN"
 
-  - script: |    
+  - script: |
       az artifacts universal download \
       --organization "https://dev.azure.com/josielbruk/" \
       --feed "josielbruk" \
@@ -30,13 +30,10 @@ steps:
       --version "0.0.1" \
       --path $(System.ArtifactsDirectory)
     env:
-      # oidc token
       FEDERATED_TOKEN: $(FEDERATED_TOKEN)
-    displayName: 'Download the artifact'
+    displayName: "Download the artifact"
 
   - script: |
       echo "Listing files"
       ls $(System.ArtifactsDirectory)
-    displayName: 'Listing the content of the folder: $(System.ArtifactsDirectory)'
-
-
+    displayName: "Listing the content of the folder: $(System.ArtifactsDirectory)"
