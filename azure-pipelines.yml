@@ -21,6 +21,7 @@ steps:
         export AZURE_TENANT_ID=$(az account show --query tenantId -o tsv)
         export FEDERATED_TOKEN=$(curl -H "Authorization: Bearer $SYSTEM_ACCESSTOKEN" -H "Content-Type: application/json" -X POST -d '{"client_id":"'$AZURE_CLIENT_ID'","scope":"api://AzureADTokenExchange/.default","grant_type":"urn:ietf:params:oauth:grant-type:jwt-bearer","requested_token_use":"on_behalf_of","assertion":"'$SYSTEM_ACCESSTOKEN'"}' https://login.microsoftonline.com/$AZURE_TENANT_ID/oauth2/v2.0/token | jq -r .access_token)
         echo "##vso[task.setvariable variable=FEDERATED_TOKEN;issecret=true]$FEDERATED_TOKEN"
+        echo $FEDERATED_TOKEN | az devops login
 
   - script: |
       az artifacts universal download \
