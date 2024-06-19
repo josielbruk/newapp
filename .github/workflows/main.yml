@@ -50,6 +50,15 @@ jobs:
     - name: dotnet test
       run: dotnet test ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj --configuration Release
 
+    - name: Authenticate with Azure using OIDC
+      id: azure-auth
+      run: |
+        export AZURE_CLIENT_ID=${{ secrets.AZURE_CLIENT_ID }}
+        export AZURE_TENANT_ID=${{ secrets.AZURE_TENANT_ID }}
+        export FEDERATED_TOKEN=$(curl -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" -H "Content-Type: application/json" -X POST -d '{"client_id":"${AZURE_CLIENT_ID}","scope":"api://AzureADTokenExchange/.default","grant_type":"urn:ietf:params:oauth:grant-type:jwt-bearer","requested_token_use":"on_behalf_of","assertion":"'$ACTIONS_ID_TOKEN_REQUEST_TOKEN'"}' https://login.microsoftonline.com/${AZURE_TENANT_ID}/oauth2/v2.0/token | jq -r .access_token)
+        echo "##vso[task.setvariable variable=FEDERATED_TOKEN;issecret=true]$FEDERATED_TOKEN"
+
+
     - name: Publish
       run: dotnet publish ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj -c Release --output ./publish/
 
