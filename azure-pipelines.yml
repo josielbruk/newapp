@@ -42,7 +42,7 @@ steps:
       --organization "https://dev.azure.com/josielbruk/" \
       --feed "josielbruk" \
       --name "my-first-package" \
-      --version "0.0.1" \
+      --version "0.0.2" \
       --path $(System.ArtifactsDirectory)
     env:
       FEDERATED_TOKEN: $(FEDERATED_TOKEN)
