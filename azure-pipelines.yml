@@ -35,20 +35,25 @@ steps:
   #       echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
   #     addSpnToEnvironment: true
 
-  - script: |
+  # - script: |
 
-      az devops login --organization https://dev.azure.com/josielbruk/ --token $(System.AccessToken)
-      az artifacts universal download \
-      --organization "https://dev.azure.com/josielbruk/" \
-      --feed "josielbruk" \
-      --name "my-first-package" \
-      --version "0.0.2" \
-      --path $(System.ArtifactsDirectory)
-    env:
-      FEDERATED_TOKEN: $(FEDERATED_TOKEN)
-    displayName: "Download the artifact"
+  #     az devops login --organization https://dev.azure.com/josielbruk/ --token $(System.AccessToken)
+  #     az artifacts universal download \
+  #     --organization "https://dev.azure.com/josielbruk/" \
+  #     --feed "josielbruk" \
+  #     --name "my-first-package" \
+  #     --version "0.0.2" \
+  #     --path $(System.ArtifactsDirectory)
+  #   env:
+  #     FEDERATED_TOKEN: $(FEDERATED_TOKEN)
+  #   displayName: "Download the artifact"
 
+  # - script: |
+  #     echo "Listing files"
+  #     ls $(System.ArtifactsDirectory)
+  #   displayName: "Listing the content of the folder: $(System.ArtifactsDirectory)"
+  
   - script: |
       echo "Listing files"
-      ls $(System.ArtifactsDirectory)
-    displayName: "Listing the content of the folder: $(System.ArtifactsDirectory)"
+      ls 
+    displayName: "Listing the content of the current folder"
