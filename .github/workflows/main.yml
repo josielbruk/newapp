@@ -7,6 +7,8 @@ env:
   TAG: ${{ github.RUN_NUMBER }}
 
 on:
+  # RUN ON COMMIT
+
   push:
     branches: [ "main" ]
     paths: 
@@ -83,7 +85,6 @@ jobs:
           --version "0.0.${{ github.RUN_NUMBER }}" \
           --description "Welcome to Universal Packages" \
           --path "./publish/"
-          --force true
 
     - name: Run Azure DevOps Pipeline
       uses: Azure/pipelines@v1
