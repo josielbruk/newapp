@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  authenticate with Azure using OIDC
+  # authenticate with Azure using OIDC
   - task: AzureCLI@2
     inputs:
       azureSubscription: "Azure Subs OIDC"
