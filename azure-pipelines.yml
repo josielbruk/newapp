@@ -5,7 +5,16 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-  # authenticate with Azure using OIDC
+  - task: AzureCLI@2
+    inputs:
+      azureSubscription: '3ebff296-2acd-4b77-b20b-0cd0efc11153'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: |
+        echo $(System.AccessToken) | az devops login
+        az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "0.0.4" --path .
+    env:
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
   - script: |
       echo "Listing files"
