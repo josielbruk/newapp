@@ -92,4 +92,6 @@ jobs:
         azure-devops-token: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
         azure-devops-project-url: 'https://dev.azure.com/josielbruk/newapp'
         azure-pipeline-name: 'josielbruk.newapp' # name of the Azure pipeline to be triggered
+      env:
+        AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
         
