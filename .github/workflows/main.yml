@@ -80,7 +80,7 @@ jobs:
           --organization https://dev.azure.com/josielbruk/ \
           --feed josielbruk \
           --name my-first-package \
-          --version ${{ github.RUN_NUMBER }} \
+          --version "0.0.${{ github.RUN_NUMBER }}" \
           --description "Welcome to Universal Packages" \
           --path "./publish/"
           --force true
