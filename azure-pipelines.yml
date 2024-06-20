@@ -52,8 +52,8 @@ steps:
   #     echo "Listing files"
   #     ls $(System.ArtifactsDirectory)
   #   displayName: "Listing the content of the folder: $(System.ArtifactsDirectory)"
-  
+
   # - script: |
   #     echo "Listing files"
-  #     ls 
+  #     ls
   #   displayName: "Listing the content of the current folder"
