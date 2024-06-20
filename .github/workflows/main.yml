@@ -83,3 +83,14 @@ jobs:
           --version 0.0.4 \
           --description "Welcome to Universal Packages" \
           --path "./publish/"
+
+    - name: Run Azure DevOps Pipeline
+      uses: Azure/pipelines@v1
+      with:
+        azure-devops-token: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
+        org: josielbruk
+        project: josielbruk
+        pipeline: 1
+        azure-devops-project-url: 'https://dev.azure.com/organization/josielbruk/newapp'
+        azure-pipeline-name: 'josielbruk.newapp' # name of the Azure pipeline to be triggered
+        
