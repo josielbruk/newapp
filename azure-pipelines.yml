@@ -12,7 +12,7 @@ steps:
       scriptLocation: 'inlineScript'
       inlineScript: |
         echo $(System.AccessToken) | az devops login
-        az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "*" --path "./App/"
+        az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "*" 
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
