@@ -14,19 +14,18 @@ steps:
         echo $(System.AccessToken) | az devops login
         az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "*" --path "app"
     env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-
-  - script: |
-      echo "Listing files"
-      tree
-    displayName: "Listing the content of the current folder"
-  
+      SYSTEM_ACCESSTOKEN: $(System.AccessToken)  
 
   - task: UniversalPackages@0
     displayName: Download a Universal Package
     inputs:
       command: download
-      vstsFeed: 'newapp/josielbruk'
+      vstsFeed: 'josielbruk'
       vstsFeedPackage: 'my-first-package'
       vstsPackageVersion: '0.0.37'
       downloadDirectory: '$(Build.SourcesDirectory)\DownloadedFromArtifact'
+  
+  - script: |
+      echo "Listing files"
+      tree
+    displayName: "Listing the content of the current folder"
