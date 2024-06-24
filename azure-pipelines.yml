@@ -20,3 +20,13 @@ steps:
       echo "Listing files"
       tree
     displayName: "Listing the content of the current folder"
+  
+
+  - task: UniversalPackages@0
+    displayName: Download a Universal Package
+    inputs:
+      command: download
+      vstsFeed: 'newapp/josielbruk'
+      vstsFeedPackage: 'my-first-package'
+      vstsPackageVersion: '0.0.37'
+      downloadDirectory: '$(Build.SourcesDirectory)\DownloadedFromArtifact'
