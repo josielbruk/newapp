@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CreateValidationException")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45fb60f519cc2d5ddadc8903af26545590a2a041")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+127c2dfb392124c90e4f4d865f10d17f19bc4b8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("CreateValidationException")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CreateValidationException")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
