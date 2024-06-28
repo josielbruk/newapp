@@ -27,7 +27,7 @@ jobs:
 
       - name: Find Projects
         run: |
-          echo "<<EOF" >> GITHUB_ENV
+          echo "projects<<EOF" >> GITHUB_ENV
           find . -name '*.csproj' -o -name '*.sln' | sort -u >> GITHUB_ENV
           echo "EOF" >> GITHUB_ENV
 
