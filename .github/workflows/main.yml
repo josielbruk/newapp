@@ -85,10 +85,10 @@ jobs:
           for project in "${projects[@]}"; do
             output_dir=$(dirname "$project")/publish
             echo "Publishing $project ..."
-            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-            zip -r "${output_dir}.zip" "$output_dir" || exit 1
-            cd /home/runner/work/newapp/newapp
-            echo "Current directory after publishing: $(pwd)"
+            # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            # zip -r "${output_dir}.zip" "$output_dir" || exit 1
+            # cd /home/runner/work/newapp/newapp
+            # echo "Current directory after publishing: $(pwd)"
           done
 
       # - name: Az CLI login
@@ -98,32 +98,32 @@ jobs:
       #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
       #     allow-no-subscriptions: true
       #     enable-AzPSSession: false
-      - run: |
-          echo "listing artifacts"
-          ls -la ./output
+      # - run: |
+      #     echo "listing artifacts"
+      #     ls -la ./output
 
-      - name: Authenticate with Azure using OIDC
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          allow-no-subscriptions: true
-          enable-AzPSSession: false
+      # - name: Authenticate with Azure using OIDC
+      #   uses: azure/login@v1
+      #   with:
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #     allow-no-subscriptions: true
+      #     enable-AzPSSession: false
 
-      - name: Upload Artifacts to Azure DevOps
-        run: |
-          for project in "${projects[@]}"; do
-            artifact_zip=$(dirname "$project")/publish.zip
-            if [[ -f "$artifact_zip" ]]; then
-              echo "Uploading $artifact_zip to Azure DevOps..."
-              az artifacts universal publish \
-                --organization https://dev.azure.com/josielbruk/ \
-                --feed josielbruk \
-                --name "$(basename "$project")" \
-                --version "0.0.${{ github.run_number }}" \
-                --description "Artifact for $project" \
-                --path "$artifact_zip"
-            else
-              echo "No artifact found for $project."
-            fi
-          done
+      # - name: Upload Artifacts to Azure DevOps
+      #   run: |
+      #     for project in "${projects[@]}"; do
+      #       artifact_zip=$(dirname "$project")/publish.zip
+      #       if [[ -f "$artifact_zip" ]]; then
+      #         echo "Uploading $artifact_zip to Azure DevOps..."
+      #         az artifacts universal publish \
+      #           --organization https://dev.azure.com/josielbruk/ \
+      #           --feed josielbruk \
+      #           --name "$(basename "$project")" \
+      #           --version "0.0.${{ github.run_number }}" \
+      #           --description "Artifact for $project" \
+      #           --path "$artifact_zip"
+      #       else
+      #         echo "No artifact found for $project."
+      #       fi
+      #     done
