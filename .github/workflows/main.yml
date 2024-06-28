@@ -26,16 +26,17 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Find Projects
-        id: find-projects
         run: |
-          echo "projects=$(find . -name '*.csproj' -o -name '*.sln' | sort -u)" >> $GITHUB_ENV
+          echo "projects<<EOF" >> $GITHUB_ENV
+          find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Restore Dependencies
         run: |
-          for project in ${{ env.projects }}; do
+          while IFS= read -r project; do
             echo "Restoring dependencies for $project ..."
             dotnet restore "$project"
-          done
+          done <<< "$projects"
 
       - name: Az CLI login
         uses: azure/login@v1
