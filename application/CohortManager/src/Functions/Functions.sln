@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "markParticipantAsEligible",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "markParticipantAsIneligible", "screeningDataServices\markParticipantAsIneligible\markParticipantAsIneligible.csproj", "{323B466B-D2DB-4774-993A-61B2A66715E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateParticipant", "screeningDataServices\createParticipant\CreateParticipant.csproj", "{AD400B3E-073B-4BBD-AF0F-EFAAF48A3E58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateParticipant", "screeningDataServices\createParticipant\createParticipant.csproj", "{AD400B3E-073B-4BBD-AF0F-EFAAF48A3E58}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ParticipantManagementServices", "ParticipantManagementServices", "{E1ADFCCC-1FF7-40E6-8D82-301F3FA909A7}"
 EndProject
@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveParticipant", "Partic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "addParticipantTest", "..\..\..\..\tests\ParticipantManagementServicesTests\addParticipantTest\addParticipantTest.csproj", "{70B919BD-95C8-4789-B29E-07F6205CBF5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "updateParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\UpdateParticipantTests\updateParticipantTests.csproj", "{F607A020-CA9C-4E65-8237-1EB663807058}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "updateParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\updateParticipantTests\updateParticipantTests.csproj", "{F607A020-CA9C-4E65-8237-1EB663807058}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\RemoveParticipantTests\RemoveParticipantTests.csproj", "{D6EC5F88-1726-485B-AF84-9737293E7250}"
 EndProject
