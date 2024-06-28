@@ -31,6 +31,12 @@ jobs:
           find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
 
+      # echo the content of $GITHUB_ENV to see the projects
+      - name: Print projects
+        run: |
+          projects=$(cat $GITHUB_ENV | grep -A 1 projects | tail -n 1)
+          echo "$projects"
+
       # - name: Restore Dependencies
       #   run: |
       #     while IFS= read -r project; do
