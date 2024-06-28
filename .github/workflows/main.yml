@@ -38,6 +38,16 @@ jobs:
             dotnet restore "$project"
           done <<< "$projects"
 
+      - name: Build and Test Projects
+        run: |
+          while IFS= read -r project; do
+            echo "Building $project ..."
+            dotnet build "$project" --configuration Release --no-restore
+            echo "Testing $project ..."
+            dotnet test "$project" --no-restore --verbosity normal
+          done <<< "$projects"    
+
+
       - name: Az CLI login
         uses: azure/login@v1
         with:
@@ -46,15 +56,7 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: false
 
-      - name: Build and Test Projects
-        run: |
-          for project in ${{ env.projects }}; do
-            echo "Building $project ..."
-            dotnet build "$project" --configuration Release --no-restore
-            echo "Testing $project ..."
-            dotnet test "$project" --no-restore --verbosity normal
-          done
-
+ 
       - name: Publish Artifacts
         run: |
           for project in ${{ env.projects }}; do
