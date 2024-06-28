@@ -66,7 +66,7 @@ jobs:
 
       - name: Publish Artifacts
         run: |
-          for project in ${{ env.projects }}; do
+          for project in "${projects[@]}"; do
             output_dir=$(dirname "$project")/publish
             echo "Publishing $project ..."
             dotnet publish "$project" -c Release -o "$output_dir"
@@ -94,7 +94,7 @@ jobs:
 
       - name: Upload Artifacts to Azure DevOps
         run: |
-          for project in ${{ env.projects }}; do
+          for project in "${projects[@]}"; do
             artifact_zip=$(dirname "$project")/publish.zip
             if [[ -f "$artifact_zip" ]]; then
               echo "Uploading $artifact_zip to Azure DevOps..."
