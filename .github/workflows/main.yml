@@ -33,9 +33,9 @@ jobs:
 
       # echo the content of $GITHUB_ENV to see the projects
       # echo content of projects variable
-      - name: Print projects
+      - name: Projects to publish
         run: |
-          echo "Projects: $projects"
+          eecho "Projects to publish: ${projects[@]}"
 
 
       # - name: Restore Dependencies
@@ -73,13 +73,11 @@ jobs:
 
       - name: Print project paths
         run: |
-          for project in "${projects[@]}"; do
-            echo "Project path: $project"
-            if [ ! -f "$project" ]; then
-              echo "Project file not found: $project"
-              # exit 1
-            fi
-          done
+          # count the number of projects in projects variable
+          projects=($(echo $projects))
+          echo "Number of projects: ${#projects[@]}"
+          
+
       
       - name: Publish Artifacts
         run: |
@@ -89,7 +87,6 @@ jobs:
             echo "Publishing $project ..."
             dotnet publish "$project" -c Release -o "$output_dir" || exit 1
             zip -r "${output_dir}.zip" "$output_dir" || exit 1
-            cd /home/runner/work/newapp/newapp
           done
 
       # - name: Az CLI login
