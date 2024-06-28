@@ -25,11 +25,11 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      # - name: Find Projects
-      #   run: |
-      #     echo "projects<<EOF" >> $GITHUB_ENV
-      #     find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
-      #     echo "EOF" >> $GITHUB_ENV
+      - name: Find Projects
+        run: |
+          echo "projects<<EOF" >> $GITHUB_ENV
+          find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       # - name: Restore Dependencies
       #   run: |
@@ -64,14 +64,14 @@ jobs:
       - name: Run tests
         run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
 
-      - name: Publish
+      - name: Publish Artifacts
         run: |
-          while IFS= read -r project; do
-            project_dir=$(dirname "$project")
-            output_dir="./output/$(basename "$project_dir")"
-            mkdir -p "$output_dir"
-            dotnet publish "$project" --no-build --configuration Release --output "$output_dir"
-          done < <(find application/CohortManager/src/Functions -name '*.csproj')t
+          for project in ${{ env.projects }}; do
+            output_dir=$(dirname "$project")/publish
+            echo "Publishing $project ..."
+            dotnet publish "$project" -c Release -o "$output_dir"
+            zip -r "${output_dir}.zip" "$output_dir"
+          done
 
       # - name: Az CLI login
       #   uses: azure/login@v1
