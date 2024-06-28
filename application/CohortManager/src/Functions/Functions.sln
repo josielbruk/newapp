@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveParticipant", "Partic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "addParticipantTest", "..\..\..\..\tests\ParticipantManagementServicesTests\addParticipantTest\addParticipantTest.csproj", "{70B919BD-95C8-4789-B29E-07F6205CBF5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "updateParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\UpdateParticipantTests\updateParticipantTests.csproj", "{F607A020-CA9C-4E65-8237-1EB663807058}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\UpdateParticipantTests\updateParticipantTests.csproj", "{F607A020-CA9C-4E65-8237-1EB663807058}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\RemoveParticipantTests\RemoveParticipantTests.csproj", "{D6EC5F88-1726-485B-AF84-9737293E7250}"
 EndProject
