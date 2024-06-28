@@ -36,35 +36,24 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Find Projects
-        id: find-projects
         run: |
-          # echo "::set-output name=projects::$(find . -name '*.csproj' -o -name '*.sln' -printf '%h\n' | sort -u)"
-          echo "projects<<EOF" >> ${GITHUB_ENV}
-          find . -name '*.csproj' -o -name '*.sln' -printf '%h\n' | sort -u >> ${GITHUB_ENV}
-          echo "EOF" >> ${GITHUB_ENV}
+          echo "projects<<EOF" >> $GITHUB_ENV
+          find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Restore Dependencies
         run: |
+          echo "$projects" > projects.txt
           while IFS= read -r project; do
-            if [[ -f "$project/$(basename "$project").csproj" ]]; then
+            project_path="${project%/*}" # Extract the directory path
+            if [[ -f "$project" ]]; then
               echo "Restoring dependencies for $project ..."
-              dotnet restore "$project/$(basename "$project").csproj"
+              dotnet restore "$project"
+            else
+              echo "Project file $project does not exist."
             fi
-          done <<< "$projects"
-      # - name: Restore Dependencies
-      #   run: |
-      #     projects=(${{ steps.find-projects.outputs.projects }})
-      #     for project in "${projects[@]}"; do
-      #       if [[ -f "$project/$(basename "$project").csproj" ]]; then
-      #         echo "Restoring dependencies for $project ..."
-      #         dotnet restore "$project"
-      #       elif [[ -f "$project/$(basename "$project").sln" ]]; then
-      #         echo "Restoring dependencies for $project ..."
-      #         dotnet restore "$project"
-      #       else
-      #         echo "No valid project found in $project."
-      #       fi
-      #     done
+          done < projects.txt
+
 
       - name: "Az CLI login"
         uses: azure/login@v1
