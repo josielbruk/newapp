@@ -83,11 +83,11 @@ jobs:
         run: |
           echo "Current directory during iteration: $(pwd)"
           for project in "${projects[@]}"; do
-            output_dir=$(dirname "/home/runner/work/newapp/newapp/$project:1")/publish
+            output_dir=$(dirname "/home/runner/work/newapp/newapp/${project:1}")/publish
             echo "Publishing $project"
             echo "Directory: $output_dir"
             echo "===================================================================================================="
-            dotnet publish "/home/runner/work/newapp/newapp/$project:1" -c Release -o "$output_dir" || exit 1
+            dotnet publish "/home/runner/work/newapp/newapp/${project:1}" -c Release -o "$output_dir" || exit 1
             echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             # zip -r "${output_dir}.zip" "$output_dir" || exit 1
             cd /home/runner/work/newapp/newapp
