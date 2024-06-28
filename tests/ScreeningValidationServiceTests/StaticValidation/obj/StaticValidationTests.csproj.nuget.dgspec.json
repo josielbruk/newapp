@@ -1,0 +1,474 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/tests/ScreeningValidationServiceTests/StaticValidation/StaticValidationTests.csproj": {}
+  },
+  "projects": {
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/FileValidation/FileValidation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/FileValidation/FileValidation.csproj",
+        "projectName": "FileValidation",
+        "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/FileValidation/FileValidation.csproj",
+        "packagesPath": "/Users/josiel/.nuget/packages/",
+        "outputPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/FileValidation/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/josiel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Azure.Functions.Worker": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Extensions.Http": {
+              "target": "Package",
+              "version": "[3.0.13, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Sdk": {
+              "target": "Package",
+              "version": "[1.15.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/LookupValidation/LookupValidation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/LookupValidation/LookupValidation.csproj",
+        "projectName": "LookupValidation",
+        "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/LookupValidation/LookupValidation.csproj",
+        "packagesPath": "/Users/josiel/.nuget/packages/",
+        "outputPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/LookupValidation/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/josiel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Azure.Functions.Worker": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Extensions.Http": {
+              "target": "Package",
+              "version": "[3.0.13, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Sdk": {
+              "target": "Package",
+              "version": "[1.15.1, )"
+            },
+            "RulesEngine": {
+              "target": "Package",
+              "version": "[5.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/StaticValidation/StaticValidation.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/StaticValidation/StaticValidation.csproj",
+        "projectName": "StaticValidation",
+        "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/StaticValidation/StaticValidation.csproj",
+        "packagesPath": "/Users/josiel/.nuget/packages/",
+        "outputPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/StaticValidation/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/josiel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Azure.Functions.Worker": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Extensions.Http": {
+              "target": "Package",
+              "version": "[3.0.13, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Sdk": {
+              "target": "Package",
+              "version": "[1.15.1, )"
+            },
+            "RulesEngine": {
+              "target": "Package",
+              "version": "[5.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj",
+        "projectName": "Common",
+        "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/Common.csproj",
+        "packagesPath": "/Users/josiel/.nuget/packages/",
+        "outputPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Common/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/josiel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/Model.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.12.0, )"
+            },
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.20.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker": {
+              "target": "Package",
+              "version": "[1.19.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/Model.csproj",
+        "projectName": "Model",
+        "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/Model.csproj",
+        "packagesPath": "/Users/josiel/.nuget/packages/",
+        "outputPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/josiel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[32.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/tests/ScreeningValidationServiceTests/StaticValidation/StaticValidationTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/tests/ScreeningValidationServiceTests/StaticValidation/StaticValidationTests.csproj",
+        "projectName": "StaticValidationTests",
+        "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/tests/ScreeningValidationServiceTests/StaticValidation/StaticValidationTests.csproj",
+        "packagesPath": "/Users/josiel/.nuget/packages/",
+        "outputPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/tests/ScreeningValidationServiceTests/StaticValidation/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/josiel/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/FileValidation/FileValidation.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/FileValidation/FileValidation.csproj"
+              },
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/LookupValidation/LookupValidation.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/LookupValidation/LookupValidation.csproj"
+              },
+              "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/StaticValidation/StaticValidation.csproj": {
+                "projectPath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/ScreeningValidationService/StaticValidation/StaticValidation.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
