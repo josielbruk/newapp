@@ -82,14 +82,14 @@ jobs:
             fi
           done
       
-      # - name: Publish Artifacts
-      #   run: |
-      #     for project in "${projects[@]}"; do
-      #       output_dir=$(dirname "$project")/publish
-      #       echo "Publishing $project ..."
-      #       dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-      #       zip -r "${output_dir}.zip" "$output_dir" || exit 1
-      #     done
+      - name: Publish Artifacts
+        run: |
+          for project in "${projects[@]}"; do
+            output_dir=$(dirname "$project")/publish
+            echo "Publishing $project ..."
+            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            zip -r "${output_dir}.zip" "$output_dir" || exit 1
+          done
 
       # - name: Az CLI login
       #   uses: azure/login@v1
