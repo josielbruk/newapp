@@ -32,7 +32,11 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       # echo the content of $GITHUB_ENV to see the projects
-      
+      # echo content of projects variable
+      - name: Print projects
+        run: |
+          echo "Projects: $projects"
+
 
       # - name: Restore Dependencies
       #   run: |
