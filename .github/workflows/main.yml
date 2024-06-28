@@ -67,10 +67,12 @@ jobs:
       - name: Publish Artifacts
         run: |
           for project in "${projects[@]}"; do
+            echo "Project path: $project"
             output_dir=$(dirname "$project")/publish
+            echo "Output directory: $output_dir"
             echo "Publishing $project ..."
-            dotnet publish "$project" -c Release -o "$output_dir"
-            zip -r "${output_dir}.zip" "$output_dir"
+            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            zip -r "${output_dir}.zip" "$output_dir" || exit 1
           done
 
       # - name: Az CLI login
