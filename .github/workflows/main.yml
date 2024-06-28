@@ -35,7 +35,7 @@ jobs:
       # echo content of projects variable
       - name: Projects to publish
         run: |
-          eecho "Projects to publish: ${projects[@]}"
+          echo "Projects to publish: ${projects[@]}"
 
 
       # - name: Restore Dependencies
