@@ -85,9 +85,10 @@ jobs:
           for project in "${projects[@]}"; do
             output_dir=$(dirname "$project")/publish
             echo "Publishing $project"
+            echo "Directory: $output_dir"
             echo "===================================================================================================="
             dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-            echo "===================================================================================================="
+            echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             # zip -r "${output_dir}.zip" "$output_dir" || exit 1
             cd /home/runner/work/newapp/newapp
             echo "Current directory after publishing: $(pwd)"
