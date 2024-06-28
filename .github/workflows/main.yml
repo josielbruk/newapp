@@ -46,6 +46,15 @@ jobs:
             echo "Testing $project ..."
             dotnet test "$project" --no-restore --verbosity normal
           done <<< "$projects"    
+ 
+      - name: Publish Artifacts
+        run: |
+          for project in ${{ env.projects }}; do
+            output_dir=$(dirname "$project")/publish
+            echo "Publishing $project ..."
+            dotnet publish "$project" -c Release -o "$output_dir"
+            zip -r "${output_dir}.zip" "$output_dir"
+          done
 
 
       - name: Az CLI login
@@ -56,15 +65,6 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: false
 
- 
-      - name: Publish Artifacts
-        run: |
-          for project in ${{ env.projects }}; do
-            output_dir=$(dirname "$project")/publish
-            echo "Publishing $project ..."
-            dotnet publish "$project" -c Release -o "$output_dir"
-            zip -r "${output_dir}.zip" "$output_dir"
-          done
 
       - name: Authenticate with Azure using OIDC
         uses: azure/login@v1
