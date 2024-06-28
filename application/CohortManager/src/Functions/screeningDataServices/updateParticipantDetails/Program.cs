@@ -26,3 +26,4 @@ var host = new HostBuilder()
     .Build();
 
 host.Run();
+
