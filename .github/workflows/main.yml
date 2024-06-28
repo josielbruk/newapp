@@ -83,6 +83,7 @@ jobs:
       
       - name: Publish Artifacts
         run: |
+          echo "Current directory during iteration: $(pwd)"
           for project in "${projects[@]}"; do
             output_dir=$(dirname "$project")/publish
             echo "Publishing $project ..."
