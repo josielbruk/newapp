@@ -85,10 +85,10 @@ jobs:
           for project in "${projects[@]}"; do
             output_dir=$(dirname "$project")/publish
             echo "Publishing $project"
-            # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-            # zip -r "${output_dir}.zip" "$output_dir" || exit 1
-            # cd /home/runner/work/newapp/newapp
-            # echo "Current directory after publishing: $(pwd)"
+            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            zip -r "${output_dir}.zip" "$output_dir" || exit 1
+            cd /home/runner/work/newapp/newapp
+            echo "Current directory after publishing: $(pwd)"
           done
 
       # - name: Az CLI login
