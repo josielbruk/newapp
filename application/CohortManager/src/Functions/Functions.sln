@@ -30,19 +30,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Shared\Common\Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Shared\Model\Model.csproj", "{682DDE9F-2868-4477-B159-9EB7D255D565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "receiveCaasFileTest", "..\..\..\..\tests\CaasIntegrationTests\receiveCaasFileTest\receiveCaasFileTest.csproj", "{8DF1A047-4800-4668-877F-8AC8708AB238}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "processCaasFileTest", "..\..\..\..\tests\CaasIntegrationTests\processCaasFileTest\processCaasFileTest.csproj", "{EB66E913-21D4-491D-8674-9DD4B20CA820}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Shared\Data\Data.csproj", "{ABA8CD5A-BEF7-4962-9C23-AE69F430CC1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveParticipant", "ParticipantManagementServices\RemoveParticipant\RemoveParticipant.csproj", "{40B97A2D-B75C-417B-90DB-4EE423250314}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "addParticipantTest", "..\..\..\..\tests\ParticipantManagementServicesTests\addParticipantTest\addParticipantTest.csproj", "{70B919BD-95C8-4789-B29E-07F6205CBF5C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "updateParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\updateParticipantTests\updateParticipantTests.csproj", "{F607A020-CA9C-4E65-8237-1EB663807058}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveParticipantTests", "..\..\..\..\tests\ParticipantManagementServicesTests\RemoveParticipantTests\RemoveParticipantTests.csproj", "{D6EC5F88-1726-485B-AF84-9737293E7250}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screeningDataServicesTests", "screeningDataServicesTests", "{2BE7CEE7-58EF-4087-8D7C-B74CE7969A5C}"
 EndProject
@@ -58,10 +48,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticValidation", "Screeni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileValidation", "ScreeningValidationService\FileValidation\FileValidation.csproj", "{15E7492F-ACCE-4267-A52A-2ABF44690F64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemographicDataServiceTests", "..\..\..\..\tests\screeningDataServicesTests\DemographicDataServiceTests\DemographicDataServiceTests.csproj", "{D3CF4C1D-9D0E-414E-8A3D-08291B891805}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemographicDataFunctionTests", "..\..\..\..\tests\DemographicServicesTests\DemographicDataFunctionTests\DemographicDataFunctionTests.csproj", "{A99A0090-6DDF-45D7-B387-025C986DF078}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ScreeningValidationServiceTests", "ScreeningValidationServiceTests", "{2E941CDF-4D51-4DB2-AEED-B4C44F9918CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateValidationException", "screeningDataServices\CreateValidationException\CreateValidationException.csproj", "{D312542F-0A4A-446B-B363-82EB0083F8F9}"
@@ -70,16 +56,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetValidationExceptions", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LookupValidation", "ScreeningValidationService\LookupValidation\LookupValidation.csproj", "{5AF185E2-6CDD-47E6-8B93-4624F0A8CA66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "createParticipantTests", "..\..\..\..\tests\screeningDataServicesTests\createParticipantTests\createParticipantTests.csproj", "{F2388615-C86A-4C2B-8832-F837E68D3835}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "markParticipantAsEligibleTests", "..\..\..\..\tests\screeningDataServicesTests\markParticipantAsEligibleTests\markParticipantAsEligibleTests.csproj", "{313D64E3-8DF7-4A07-B60C-78A0DA380466}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileValidationTests", "..\..\..\..\tests\ScreeningValidationServiceTests\FileValidation\FileValidationTests.csproj", "{E0A701BD-23C7-45C1-B969-E639B001C7E9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LookupValidationTests", "..\..\..\..\tests\ScreeningValidationServiceTests\LookupValidation\LookupValidationTests.csproj", "{79DF4237-68B8-4BA3-A9CC-298A96248CC1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticValidationTests", "..\..\..\..\tests\ScreeningValidationServiceTests\StaticValidation\StaticValidationTests.csproj", "{CD708F54-3DB5-4D70-ABED-8843E61EC1A6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CohortDistribution", "CohortDistribution", "{181DFBFE-C1D5-49C5-A2C6-BA2A93FDBBBC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AggregateDataServices", "AggregateDataServices", "{F589D54E-8BFF-45BD-85A8-0C1FCF4F58F3}"
@@ -87,8 +63,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetrieveAggregate", "CohortDistribution\AggregateDataServices\RetrieveAggregate\RetrieveAggregate.csproj", "{BD73440D-607E-4002-B7A1-14C0194B5230}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddAggregationData", "CohortDistribution\AggregateDataServices\AddAggregationData\AddAggregationData.csproj", "{02CB2B53-7670-47CC-93DF-6F941FB58C38}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AggregationDataTests", "..\..\..\..\tests\AddAggregationDataTests\AggregationDataTests\AggregationDataTests.csproj", "{963347ED-E02D-42D2-8A9C-05115E8B75C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
