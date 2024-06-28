@@ -64,12 +64,20 @@ jobs:
       - name: Run tests
         run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
 
-      - name: Publish Artifacts
+      - name: Print project paths
         run: |
           for project in "${projects[@]}"; do
             echo "Project path: $project"
+            if [ ! -f "$project" ]; then
+              echo "Project file not found: $project"
+              exit 1
+            fi
+          done
+      
+      - name: Publish Artifacts
+        run: |
+          for project in "${projects[@]}"; do
             output_dir=$(dirname "$project")/publish
-            echo "Output directory: $output_dir"
             echo "Publishing $project ..."
             dotnet publish "$project" -c Release -o "$output_dir" || exit 1
             zip -r "${output_dir}.zip" "$output_dir" || exit 1
