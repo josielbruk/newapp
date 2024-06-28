@@ -74,8 +74,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "createParticipantTests", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "markParticipantAsEligibleTests", "..\..\..\..\tests\screeningDataServicesTests\markParticipantAsEligibleTests\markParticipantAsEligibleTests.csproj", "{313D64E3-8DF7-4A07-B60C-78A0DA380466}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "updateParticipantDetailsTests", "..\..\..\..\tests\screeningDataServicesTests\updateParticipantDetailsTests\updateParticipantDetailsTests.csproj", "{039F89A9-FD1D-483E-BD15-83008943FE96}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileValidationTests", "..\..\..\..\tests\ScreeningValidationServiceTests\FileValidation\FileValidationTests.csproj", "{E0A701BD-23C7-45C1-B969-E639B001C7E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LookupValidationTests", "..\..\..\..\tests\ScreeningValidationServiceTests\LookupValidation\LookupValidationTests.csproj", "{79DF4237-68B8-4BA3-A9CC-298A96248CC1}"
