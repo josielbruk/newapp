@@ -1,7 +1,5 @@
 namespace NHS.CohortManager.CohortDistributionService;
-using Microsoft.Azure.Functions.Worker;
-using Microsoft.Azure.Functions.Worker.Http;
-using System.Net;
+
 
 public class CohortDistributionService
 {
@@ -18,11 +16,6 @@ public class CohortDistributionService
             // provide participant, demographic, service provider
 
         // call add aggregation data service
-            // Create a response
-        var response = req.CreateResponse(HttpStatusCode.OK);
-        await response.WriteStringAsync("Hello World");
-
-        return response;
 
     }
 }
