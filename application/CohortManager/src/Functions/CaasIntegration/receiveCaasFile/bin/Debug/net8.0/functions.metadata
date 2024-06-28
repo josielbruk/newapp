@@ -1,0 +1,23 @@
+[
+  {
+    "name": "ReceiveCaasFile",
+    "scriptFile": "receiveCaasFile.dll",
+    "entryPoint": "NHS.Screening.ReceiveCaasFile.ReceiveCaasFile.Run",
+    "language": "dotnet-isolated",
+    "properties": {
+      "IsCodeless": false
+    },
+    "bindings": [
+      {
+        "name": "stream",
+        "direction": "In",
+        "type": "blobTrigger",
+        "path": "inbound/{name}",
+        "connection": "caasfolder_STORAGE",
+        "properties": {
+          "supportsDeferredBinding": "True"
+        }
+      }
+    ]
+  }
+]

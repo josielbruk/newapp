@@ -11,7 +11,7 @@ variable "resource_group_name" {
     description = "Name of the resource group"
     type        = string
     validation {
-        condition = var.storage_account_location != null
+        condition = var.resource_group_name != null
         error_message = "The resource group name must be provided."
     }
   

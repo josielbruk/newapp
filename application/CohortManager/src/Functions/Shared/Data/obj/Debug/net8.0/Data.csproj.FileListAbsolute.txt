@@ -1,0 +1,6 @@
+/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Data/obj/Debug/net8.0/Data.csproj.AssemblyReference.cache
+/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Data/obj/Debug/net8.0/Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Data/obj/Debug/net8.0/Data.AssemblyInfoInputs.cache
+/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Data/obj/Debug/net8.0/Data.AssemblyInfo.cs
+/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Data/obj/Debug/net8.0/Data.csproj.CoreCompileInputs.cache
+/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Data/obj/Debug/net8.0/Data.sourcelink.json

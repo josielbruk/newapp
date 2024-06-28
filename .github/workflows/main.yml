@@ -1,9 +1,7 @@
 name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name    # set this to the name of your Azure Web App
-  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '6.0.x'                 # set this to the .NET Core version to use
+  DOTNET_VERSION: '8.0.x'                 # set this to the .NET Core version to use
   TAG: ${{ github.RUN_NUMBER }}
 
 on:
@@ -12,11 +10,11 @@ on:
   push:
     branches: [ "main" ]
     paths: 
-      - 'app/**'
+      - 'application/**'
   pull_request:
     branches: [ "main" ]
     paths: 
-      - 'app/**'
+      - 'application/**'
   workflow_dispatch:
 
 permissions:
@@ -38,20 +36,27 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
-      run: dotnet restore ${{ github.workspace }}/app/src/RazorPagesTestSample/RazorPagesTestSample.sln
-      shell: /usr/bin/bash -e {0}
-      # env:
-      #   AZURE_WEBAPP_NAME: your-app-name
-      #   AZURE_WEBAPP_PACKAGE_PATH: .
-      #   DOTNET_VERSION: 6.0.x
-      #   DOTNET_ROOT: /home/runner/.dotnet
+    - name: Find Projects
+      id: find-projects
+      run: |
+        echo "::set-output name=projects::$(find . -name '*.csproj' -o -name '*.sln' -printf '%h\n' | sort -u)"
 
-    - name: Build with dotnet
-      run: dotnet build ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj
 
-    - name: dotnet test
-      run: dotnet test ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj --configuration Release
+    - name: Restore Dependencies
+      run: |
+        projects=(${{ steps.find-projects.outputs.projects }})
+        for project in "${projects[@]}"; do
+          if [[ -f "$project/$(basename "$project").csproj" ]]; then
+            echo "Restoring dependencies for $project ..."
+            dotnet restore "$project"
+          elif [[ -f "$project/$(basename "$project").sln" ]]; then
+            echo "Restoring dependencies for $project ..."
+            dotnet restore "$project"
+          else
+            echo "No valid project found in $project."
+          fi
+        done
+
 
     - name: Authenticate with Azure using OIDC
       id: azure-auth
@@ -69,29 +74,96 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: false
 
-    - name: Publish
-      run: dotnet publish ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj -c Release --output ./publish/
 
-    - name: Publish Artifact to Azure DevOps
+    - name: Build and Test Projects
+      run: |
+        projects=(${{ steps.find-projects.outputs.projects }})
+        for project in "${projects[@]}"; do
+          if [[ -f "$project/$(basename "$project").csproj" ]]; then
+            echo "Building $project ..."
+            dotnet build "$project" --configuration Release --no-restore
+            echo "Testing $project ..."
+            dotnet test "$project" --no-restore --verbosity normal
+          elif [[ -f "$project/$(basename "$project").sln" ]]; then
+            echo "Building $project ..."
+            dotnet build "$project" --configuration Release --no-restore
+            echo "Testing $project ..."
+            dotnet test "$project" --no-restore --verbosity normal
+          else
+            echo "No valid project found in $project."
+          fi
+        done
+
+    - name: Publish Artifacts
+      run: |
+        projects=(${{ steps.find-projects.outputs.projects }})
+        for project in "${projects[@]}"; do
+          if [[ -f "$project/$(basename "$project").csproj" ]]; then
+            echo "Publishing $project ..."
+            dotnet publish "$project" -c Release -o "$(System.ArtifactsDirectory)/$(basename "$project")"
+            zip -r "$project.zip" "$project"  # Zip the published folder
+          elif [[ -f "$project/$(basename "$project").sln" ]]; then
+            echo "Publishing $project ..."
+            dotnet publish "$project" -c Release -o "$(System.ArtifactsDirectory)/$(basename "$project")"
+            zip -r "$project.zip" "$project"  # Zip the published folder
+          else
+            echo "No valid project found in $project."
+          fi
+        done
+
+    - name: Upload Artifacts to Azure DevOps
       uses: azure/CLI@v1
       env:
         AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
       with:
         inlineScript: |
-          az artifacts universal publish \
-          --organization https://dev.azure.com/josielbruk/ \
-          --feed josielbruk \
-          --name my-first-package \
-          --version "0.0.${{ github.RUN_NUMBER }}" \
-          --description "Welcome to Universal Packages" \
-          --path "./publish/"
+          projects=(${{ steps.find-projects.outputs.projects }})
+          for project in "${projects[@]}"; do
+            if [[ -f "$project.zip" ]]; then
+              echo "Uploading $project.zip to Azure DevOps..."
+              az artifacts universal publish \
+                --organization https://dev.azure.com/josielbruk/ \
+                --feed josielbruk \
+                --name "$(basename "$project")" \
+                --version "0.0.${{ github.RUN_NUMBER }}" \
+                --description "Artifact for $project" \
+                --path "$project.zip"
+            else
+              echo "No artifact found for $project."
+            fi
+          done
 
-    - name: Run Azure DevOps Pipeline
-      uses: Azure/pipelines@v1
-      with:
-        azure-devops-token: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
-        azure-devops-project-url: 'https://dev.azure.com/josielbruk/newapp'
-        azure-pipeline-name: 'josielbruk.newapp' # name of the Azure pipeline to be triggered
-      env:
-        AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
+
+
+
+    # - name: Build with dotnet
+    #   run: dotnet build ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj
+
+    # - name: dotnet test
+    #   run: dotnet test ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj --configuration Release
+    
+    # - name: Restore dependencies
+    #   run: dotnet restore ${{ github.workspace }}/app/src/RazorPagesTestSample/RazorPagesTestSample.sln
+    #   shell: /usr/bin/bash -e {0}
+      # env:
+      #   AZURE_WEBAPP_NAME: your-app-name
+      #   AZURE_WEBAPP_PACKAGE_PATH: .
+      #   DOTNET_VERSION: 6.0.x
+      #   DOTNET_ROOT: /home/runner/.dotnet
+    # - name: Publish
+    #   run: dotnet publish ./app/src/RazorPagesTestSample/RazorPagesTestSample.csproj -c Release --output ./publish/
+
+    # - name: Publish Artifact to Azure DevOps
+    #   uses: azure/CLI@v1
+    #   env:
+    #     AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
+    #   with:
+    #     inlineScript: |
+    #       az artifacts universal publish \
+    #       --organization https://dev.azure.com/josielbruk/ \
+    #       --feed josielbruk \
+    #       --name my-first-package \
+    #       --version "0.0.${{ github.RUN_NUMBER }}" \
+    #       --description "Welcome to Universal Packages" \
+    #       --path "./publish/"
         

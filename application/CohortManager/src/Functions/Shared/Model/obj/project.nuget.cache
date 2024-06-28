@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "vzkvr9IsJxs=",
+  "success": true,
+  "projectFilePath": "/Users/josiel/Documents/projects/nhs/DToS/dtos-landing-zone/application/CohortManager/src/Functions/Shared/Model/Model.csproj",
+  "expectedPackageFiles": [
+    "/Users/josiel/.nuget/packages/csvhelper/32.0.3/csvhelper.32.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
