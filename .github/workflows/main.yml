@@ -39,23 +39,33 @@ jobs:
     - name: Find Projects
       id: find-projects
       run: |
-        echo "::set-output name=projects::$(find . -name '*.csproj' -o -name '*.sln' -printf '%h\n' | sort -u)"
-
+        # echo "::set-output name=projects::$(find . -name '*.csproj' -o -name '*.sln' -printf '%h\n' | sort -u)"
+        echo "projects<<EOF" >> $GITHUB_ENV
+        find . -name '*.csproj' -o -name '*.sln' -printf '%h\n' | sort -u >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Restore Dependencies
       run: |
-        projects=(${{ steps.find-projects.outputs.projects }})
-        for project in "${projects[@]}"; do
+        while IFS= read -r project; do
           if [[ -f "$project/$(basename "$project").csproj" ]]; then
             echo "Restoring dependencies for $project ..."
-            dotnet restore "$project"
-          elif [[ -f "$project/$(basename "$project").sln" ]]; then
-            echo "Restoring dependencies for $project ..."
-            dotnet restore "$project"
-          else
-            echo "No valid project found in $project."
+            dotnet restore "$project/$(basename "$project").csproj"
           fi
-        done
+        done <<< "$projects"
+    # - name: Restore Dependencies
+    #   run: |
+    #     projects=(${{ steps.find-projects.outputs.projects }})
+    #     for project in "${projects[@]}"; do
+    #       if [[ -f "$project/$(basename "$project").csproj" ]]; then
+    #         echo "Restoring dependencies for $project ..."
+    #         dotnet restore "$project"
+    #       elif [[ -f "$project/$(basename "$project").sln" ]]; then
+    #         echo "Restoring dependencies for $project ..."
+    #         dotnet restore "$project"
+    #       else
+    #         echo "No valid project found in $project."
+    #       fi
+    #     done
 
 
     - name: Authenticate with Azure using OIDC
