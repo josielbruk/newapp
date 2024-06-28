@@ -65,7 +65,13 @@ jobs:
         run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
 
       - name: Publish
-        run: dotnet publish application/CohortManager/src/Functions/Functions.sln --no-build --configuration Release --output ./output
+        run: |
+          while IFS= read -r project; do
+            project_dir=$(dirname "$project")
+            output_dir="./output/$(basename "$project_dir")"
+            mkdir -p "$output_dir"
+            dotnet publish "$project" --no-build --configuration Release --output "$output_dir"
+          done < <(find application/CohortManager/src/Functions -name '*.csproj')t
 
       # - name: Az CLI login
       #   uses: azure/login@v1
