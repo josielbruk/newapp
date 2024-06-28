@@ -9,6 +9,7 @@ using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Model;
 
+
 public class AddAggregationDataFunction
 {
     private readonly ILogger<AddAggregationDataFunction> _logger;
