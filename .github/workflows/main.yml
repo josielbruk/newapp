@@ -25,37 +25,47 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Find Projects
-        run: |
-          echo "projects<<EOF" >> $GITHUB_ENV
-          find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+      # - name: Find Projects
+      #   run: |
+      #     echo "projects<<EOF" >> $GITHUB_ENV
+      #     find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
+      #     echo "EOF" >> $GITHUB_ENV
 
-      - name: Restore Dependencies
-        run: |
-          while IFS= read -r project; do
-            echo "Restoring dependencies for $project ..."
-            dotnet restore "$project"
-          done <<< "$projects"
+      # - name: Restore Dependencies
+      #   run: |
+      #     while IFS= read -r project; do
+      #       echo "Restoring dependencies for $project ..."
+      #       dotnet restore "$project"
+      #     done <<< "$projects"
 
-      - name: Build and Test Projects
-        run: |
-          while IFS= read -r project; do
-            echo "Building $project ..."
-            dotnet build "$project" --configuration Release --no-restore
-            echo "Testing $project ..."
-            dotnet test "$project" --no-restore --verbosity normal
-          done <<< "$projects"    
+      # - name: Build and Test Projects
+      #   run: |
+      #     while IFS= read -r project; do
+      #       echo "Building $project ..."
+      #       dotnet build "$project" --configuration Release --no-restore
+      #       echo "Testing $project ..."
+      #       dotnet test "$project" --no-restore --verbosity normal
+      #     done <<< "$projects"    
  
-      - name: Publish Artifacts
-        run: |
-          for project in ${{ env.projects }}; do
-            output_dir=$(dirname "$project")/publish
-            echo "Publishing $project ..."
-            dotnet publish "$project" -c Release -o "$output_dir"
-            zip -r "${output_dir}.zip" "$output_dir"
-          done
+      # - name: Publish Artifacts
+      #   run: |
+      #     for project in ${{ env.projects }}; do
+      #       output_dir=$(dirname "$project")/publish
+      #       echo "Publishing $project ..."
+      #       dotnet publish "$project" -c Release -o "$output_dir"
+      #       zip -r "${output_dir}.zip" "$output_dir"
+      #     done
+      - name: Restore dependencies
+        run: dotnet restore application/CohortManager/src/Functions/Functions.sln
 
+      - name: Build
+        run: dotnet build application/CohortManager/src/Functions/Functions.sln --no-restore --configuration Release
+
+      - name: Run tests
+        run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
+
+      - name: Publish
+        run: dotnet publish application/CohortManager/src/Functions/Functions.sln --no-build --configuration Release --output ./output
 
       # - name: Az CLI login
       #   uses: azure/login@v1
@@ -64,7 +74,9 @@ jobs:
       #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
       #     allow-no-subscriptions: true
       #     enable-AzPSSession: false
-
+      - run: |
+          echo "listing artifacts"
+          ls -la ./output
 
       - name: Authenticate with Azure using OIDC
         uses: azure/login@v1
