@@ -70,11 +70,11 @@ jobs:
       # - name: Run tests
       #   run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
 
-      - name: Print project paths
-        run: |
-          # count the number of projects in projects variable
-          projects=($(echo $projects))
-          echo "Number of projects: ${#projects[@]}"
+      # - name: Print project paths
+      #   run: |
+      #     # count the number of projects in projects variable
+      #     projects=($(echo $projects))
+      #     echo "Number of projects: ${#projects[@]}"
 
       - name: Publish Artifacts
         run: |
