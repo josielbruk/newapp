@@ -82,7 +82,7 @@ jobs:
       - name: Publish Artifacts
         run: |
           output_dir="./publish"
-          project="application/CohortManager/src/Functions/Functions.csproj"
+          project="application/CohortManager/src/Functions/Functions.sln"
           dotnet publish "$project" -c Release -o "$output_dir" || exit 1
           echo "===================================================================================================="
           dotnet publish "$project" -c Release -o "$output_dir" || exit 1
