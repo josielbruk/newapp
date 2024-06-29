@@ -84,20 +84,20 @@ jobs:
             
             file_name=$(basename "${project%.csproj}")
             echo "File name: $file_name"
-            output_dir="./publish/$file_name"
-            echo "Directory: $output_dir"
+            # output_dir="./publish/$file_name"
+            # echo "Directory: $output_dir"
 
-            echo "===================================================================================================="
-            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-            echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            zip -r "${file_name}.zip" "$output_dir" || exit 1
+            # echo "===================================================================================================="
+            # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            # zip -r "${file_name}.zip" "$output_dir" || exit 1
 
           done <<< "$projects"
 
-      - name: List artifacts
-        run: |
-          cd publish
-          tree
+      # - name: List artifacts
+      #   run: |
+      #     cd publish
+      #     tree
 
 
       # - name: Az CLI login
