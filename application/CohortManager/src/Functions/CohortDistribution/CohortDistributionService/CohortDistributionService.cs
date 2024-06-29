@@ -12,7 +12,7 @@ public class CohortDistributionService
     [Function("CohortDistributionService")]
     public async Task<HttpResponseData> Run(HttpRequestData req)
     {
-        if (someCondition)
+        if (true)
         {
             // Do something
             return req.CreateResponse(HttpStatusCode.OK);
