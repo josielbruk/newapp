@@ -51,14 +51,10 @@ jobs:
         run: |
           cd ${{ env.app_path }}
           mkdir -p ./artifacts/
-          echo "ls folders"
-          ls -la
           for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
             functionName=$(basename $functionDir)
             dotnet publish --configuration Release --output ./output/$functionName $functionDir
             zip -r $functionName.zip ./output/$functionName
-            echo "Path to zip file: $functionName.zip"
-            pwd
             mv $functionName.zip ./artifacts/
           done
 
@@ -76,7 +72,8 @@ jobs:
         run: |
           cd ${{ env.app_path }}/artifacts
           for zipFile in *.zip; do
-            functionName=$(basename $zipFile .zip)
+            # functionName=$(basename $zipFile .zip)
+            functionName=$(basename $zipFile .zip | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9_.-]/-/g')
             echo "Uploading $zipFile to Azure Artifacts"
             az artifacts universal publish \
               --organization "https://dev.azure.com/josielbruk/" \
@@ -85,6 +82,4 @@ jobs:
               --version "1.0.0" \
               --description "Zipped .NET codebase for $functionName" \
               --path .
-            echo "****Uploaded $zipFile to Azure Artifacts***"
-            ls -la
           done
