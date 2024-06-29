@@ -51,10 +51,14 @@ jobs:
         run: |
           cd ${{ env.app_path }}
           mkdir -p ./artifacts/
+          echo "ls folders"
+          ls -la
           for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
             functionName=$(basename $functionDir)
             dotnet publish --configuration Release --output ./output/$functionName $functionDir
             zip -r $functionName.zip ./output/$functionName
+            echo "Path to zip file: $functionName.zip"
+            pwd
             mv $functionName.zip ./artifacts/
           done
 
