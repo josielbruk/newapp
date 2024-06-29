@@ -83,6 +83,7 @@ jobs:
         run: |
           output_dir="./publish"
           project="application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj"
+          file_name=$(basename "${project%.csproj}")
           dotnet publish "$project" -c Release -o "$output_dir" || exit 1
           echo "===================================================================================================="
           dotnet publish "$project" -c Release -o "$output_dir" || exit 1
