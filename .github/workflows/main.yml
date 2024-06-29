@@ -27,7 +27,7 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-        working-directory: ./CohortManager/src/Functions
+        working-directory: ${{ env.app_path }}
 
       - name: Build functions
         run: |
