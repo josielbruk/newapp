@@ -68,7 +68,7 @@ jobs:
         run: dotnet restore application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj
 
       - name: Build
-        run: dotnet build application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj Release
+        run: dotnet build application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --configuration Release
 
       - name: Run tests
         run: dotnet test application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --no-restore --verbosity normal
