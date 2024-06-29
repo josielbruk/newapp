@@ -68,10 +68,10 @@ jobs:
         run: dotnet restore application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj
 
       - name: Build
-        run: dotnet build application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --no-restore --configuration Release
+        run: dotnet build application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj Release
 
       - name: Run tests
-        run: dotnet test application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --no-build --verbosity normal --configuration Release
+        run: dotnet test application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --no-restore --verbosity normal
 
 
       - name: Publish Artifacts
@@ -139,12 +139,12 @@ jobs:
           AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
         run: |
           az artifacts universal publish \
-            --organization https://dev.azure.com/josielbruk/ \
-            --feed josielbruk \
-            --name "AddAggregationData.zip" \
-            --version "0.0.${{ github.run_number }}" \
-            --description "Artifact for $project" \
-            --path "."
+            --organization "https://dev.azure.com/josielbruk/" \
+            --feed "josielbruk" \
+            --name "AddAggregationData" \
+            --version "1.0.0" \
+            --description "Zipped .NET codebase" \
+            --path "./AddAggregationData.zip"
 
           # for project in "${projects[@]}"; do
           #   artifact_zip=$(dirname "$project")/publish.zip
