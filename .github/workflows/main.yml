@@ -37,7 +37,6 @@ jobs:
         run: |
           echo "Projects to publish: ${projects[@]}"
 
-
       # - name: Restore Dependencies
       #   run: |
       #     while IFS= read -r project; do
@@ -52,8 +51,8 @@ jobs:
       #       dotnet build "$project" --configuration Release --no-restore
       #       echo "Testing $project ..."
       #       dotnet test "$project" --no-restore --verbosity normal
-      #     done <<< "$projects"    
- 
+      #     done <<< "$projects"
+
       # - name: Publish Artifacts
       #   run: |
       #     for project in ${{ env.projects }}; do
@@ -76,24 +75,22 @@ jobs:
           # count the number of projects in projects variable
           projects=($(echo $projects))
           echo "Number of projects: ${#projects[@]}"
-          
 
-      
       - name: Publish Artifacts
         run: |
           echo "Current directory during iteration: $(pwd)"
-          for project in "${projects[@]}"; do
-            output_dir=$(dirname "/home/runner/work/newapp/newapp${project:1}")
-            output_dir="${output_dir%.csproj}/publish"
-            echo "Publishing $project"
+          projects=($(echo $projects))
+          while IFS= read -r project; do
+            echo "Processing $project ..."
+            output_dir=$(dirname "/home/runner/work/newapp/newapp${project:1}/publish")
             echo "Directory: $output_dir"
             echo "===================================================================================================="
-            dotnet publish "./home/runner/work/newapp/newapp${project:1}" -c Release -o "$output_dir" || exit 1
+            dotnet publish "/home/runner/work/newapp/newapp${project:1}" -c Release -o "$output_dir" || exit 1
             echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            # zip -r "${output_dir}.zip" "$output_dir" || exit 1
+            zip -r "${output_dir}.zip" "$output_dir" || exit 1
             cd /home/runner/work/newapp/newapp
             echo "Current directory after publishing: $(pwd)"
-          done
+          done <<< "$projects"
 
       # - name: Az CLI login
       #   uses: azure/login@v1
