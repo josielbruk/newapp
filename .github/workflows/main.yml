@@ -50,6 +50,7 @@ jobs:
       - name: Publish Artifacts
         run: |
           cd ${{ env.app_path }}
+          mkdir -p ./artifacts/
           for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
             functionName=$(basename $functionDir)
             dotnet publish --configuration Release --output ./output/$functionName $functionDir
