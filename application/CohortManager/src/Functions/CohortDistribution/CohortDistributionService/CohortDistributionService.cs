@@ -4,14 +4,7 @@ using Microsoft.Azure.Functions.Worker.Http;
 using System.Threading.Tasks;
 
 namespace NHS.CohortManager.CohortDistributionService;
-public static class ServiceExtensions
-{
-    public static void AddAggregationDataService(this IServiceCollection services)
-    {
-        // Assuming AddAggregationDataService is meant to add a service to the DI container
-        services.AddTransient<IAggregationDataService, AggregationDataService>();
-    }
-}
+
 
 public class CohortDistributionService
 {
