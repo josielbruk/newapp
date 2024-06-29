@@ -145,12 +145,12 @@ jobs:
           AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
         run: |
           az artifacts universal publish \
-                --organization https://dev.azure.com/josielbruk/ \
-                --feed josielbruk \
-                --name "AddAggregationData" \
-                --version "0.0.${{ github.run_number }}" \
-                --description "Artifact for $project" \
-                --path "AddAggregationData.zip"
+            --organization https://dev.azure.com/josielbruk/ \
+            --feed josielbruk \
+            --name "AddAggregationData" \
+            --version "0.0.${{ github.run_number }}" \
+            --description "Artifact for $project" \
+            --path "./AddAggregationData.zip"
 
           # for project in "${projects[@]}"; do
           #   artifact_zip=$(dirname "$project")/publish.zip
