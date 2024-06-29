@@ -36,10 +36,10 @@ jobs:
         id: changes
         run: |
           cd ${{ env.app_path }}
-          if git rev-parse HEAD^ > /dev/null 2>&1; then
+          if git rev-parse --verify HEAD^ > /dev/null 2>&1; then
             changed_files=$(git diff --name-only HEAD^ HEAD)
           else
-            changed_files=$(git diff --name-only HEAD)
+            changed_files=$(git diff --name-only $(git hash-object -t tree /dev/null) HEAD)
           fi
           echo "Changed files: $changed_files"
           changed_functions=$(for file in $changed_files; do dirname $file; done | sort -u | grep -E '^[^/]+$')
