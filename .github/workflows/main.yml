@@ -87,8 +87,12 @@ jobs:
           echo "===================================================================================================="
           dotnet publish "$project" -c Release -o "$output_dir" || exit 1
           echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-          zip -r "${file_name}.zip" "$output_dir" || exit 1
+          cd $output_dir
+          zip -r "../${file_name}.zip" . || exit 1
           echo "zipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipz"
+          cd ..
+          echo "ls publish folder zip files"
+          ls 
 
           # for project in $projects; do
           #   echo "Processing $project ..."
@@ -118,6 +122,7 @@ jobs:
           #   # echo "===================================================================================================="
           #   # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
           #   # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
           #   # zip -r "${file_name}.zip" "$output_dir" || exit 1
 
           # done <<< "$projects"
@@ -145,15 +150,15 @@ jobs:
       #     allow-no-subscriptions: true
       #     enable-AzPSSession: false
 
-      - name: Upload Artifacts to Azure DevOps
-        run: |
-          az artifacts universal publish \
-                --organization https://dev.azure.com/josielbruk/ \
-                --feed josielbruk \
-                --name "$(basename "$project")" \
-                --version "0.0.${{ github.run_number }}" \
-                --description "Artifact for $project" \
-                --path "$artifact_zip"
+      # - name: Upload Artifacts to Azure DevOps
+      #   run: |
+      #     az artifacts universal publish \
+      #           --organization https://dev.azure.com/josielbruk/ \
+      #           --feed josielbruk \
+      #           --name "$(basename "$project")" \
+      #           --version "0.0.${{ github.run_number }}" \
+      #           --description "Artifact for $project" \
+      #           --path "$artifact_zip"
 
           # for project in "${projects[@]}"; do
           #   artifact_zip=$(dirname "$project")/publish.zip
