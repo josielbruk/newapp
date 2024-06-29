@@ -73,11 +73,6 @@ jobs:
       - name: Run tests
         run: dotnet test application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --no-build --verbosity normal --configuration Release
 
-      # - name: Print project paths
-      #   run: |
-      #     # count the number of projects in projects variable
-      #     projects=($(echo $projects))
-      #     echo "Number of projects: ${#projects[@]}"
 
       - name: Publish Artifacts
         run: |
@@ -128,12 +123,6 @@ jobs:
 
           # done <<< "$projects"
 
-      - name: List artifacts
-        run: |
-          cd publish
-          tree
-
-
       - name: Az CLI login
         uses: azure/login@v1
         with:
@@ -151,15 +140,17 @@ jobs:
       #     allow-no-subscriptions: true
       #     enable-AzPSSession: false
 
-      # - name: Upload Artifacts to Azure DevOps
-      #   run: |
-      #     az artifacts universal publish \
-      #           --organization https://dev.azure.com/josielbruk/ \
-      #           --feed josielbruk \
-      #           --name "$(basename "$project")" \
-      #           --version "0.0.${{ github.run_number }}" \
-      #           --description "Artifact for $project" \
-      #           --path "$artifact_zip"
+      - name: Upload Artifacts to Azure DevOps
+        env:
+          AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
+        run: |
+          az artifacts universal publish \
+                --organization https://dev.azure.com/josielbruk/ \
+                --feed josielbruk \
+                --name "AddAggregationData" \
+                --version "0.0.${{ github.run_number }}" \
+                --description "Artifact for $project" \
+                --path "AddAggregationData.zip"
 
           # for project in "${projects[@]}"; do
           #   artifact_zip=$(dirname "$project")/publish.zip
