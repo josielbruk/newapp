@@ -1,6 +1,8 @@
 using System.Net;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
+using System.Threading.Tasks;
+
 namespace NHS.CohortManager.CohortDistributionService;
 
 
@@ -19,9 +21,9 @@ public class CohortDistributionService
             // provide participant, demographic, service provider
 
         // call add aggregation data service
-        // var response = req.CreateResponse(HttpStatusCode.OK);
-        // await response.WriteStringAsync("Service is operational.");
-        // return response;
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteStringAsync("Service is operational.");
+        return response;
 
     }
 }
