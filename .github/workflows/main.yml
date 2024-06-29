@@ -83,7 +83,7 @@ jobs:
             echo "Processing $project ..."
             output_dir="/publish"
             echo "Directory: $output_dir"
-            file_name=$(basename "${dir_path%.csproj}")
+            file_name=$(basename "${project%.csproj}")
             echo "File name: $file_name"
 
 
