@@ -82,7 +82,7 @@ jobs:
           projects=($(echo $projects))
           while IFS= read -r project; do
             echo "Processing $project ..."
-            dir_path=$(dirname "$project")
+            dir_path=$(dirname "${project}/publish")
             echo "Directory: $dir_path"
             # output_dir=$(dirname "/home/runner/work/newapp/newapp${project:1}")
             # dir_path="${csproj_path%.csproj}"
