@@ -18,6 +18,9 @@ public class CohortDistributionService
             // provide participant, demographic, service provider
 
         // call add aggregation data service
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        await response.WriteStringAsync("Service is operational.");
+        return response;
 
     }
 }
