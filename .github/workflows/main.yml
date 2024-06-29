@@ -36,7 +36,6 @@ jobs:
         id: changes
         run: |
           cd ${{ env.app_path }}
-          # Corrected to check for the existence of any parent commit
           if git rev-parse HEAD^ > /dev/null 2>&1; then
             changed_files=$(git diff --name-only HEAD^ HEAD)
           else
@@ -44,8 +43,11 @@ jobs:
           fi
           echo "Changed files: $changed_files"
           changed_functions=$(for file in $changed_files; do dirname $file; done | sort -u | grep -E '^[^/]+$')
+          if [ -z "$changed_functions" ]; then
+            changed_functions="none"
+          fi
           echo "Changed functions: $changed_functions"
-          echo "::set-output name=changed_functions::${changed_functions}"
+          echo "::set-output name=changed_functions::$changed_functions"
         shell: bash
 
       - name: Build and test changed functions
