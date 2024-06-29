@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 namespace NHS.CohortManager.CohortDistributionService;
