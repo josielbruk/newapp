@@ -81,8 +81,7 @@ jobs:
           projects=($(echo $projects))
           while IFS= read -r project; do
             echo "Processing $project ..."
-            dir_path=$(dirname "${project}")
-            output_dir="${dir_path}/publish"
+            output_dir="/publish"
             echo "Directory: $output_dir"
             file_name=$(basename "${dir_path%.csproj}")
             echo "File name: $file_name"
