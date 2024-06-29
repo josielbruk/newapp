@@ -64,14 +64,14 @@ jobs:
       #       dotnet publish "$project" -c Release -o "$output_dir"
       #       zip -r "${output_dir}.zip" "$output_dir"
       # #     done
-      # - name: Restore dependencies
-      #   run: dotnet restore application/CohortManager/src/Functions/Functions.sln
+      - name: Restore dependencies
+        run: dotnet restore application/CohortManager/src/Functions/Functions.sln
 
-      # - name: Build
-      #   run: dotnet build application/CohortManager/src/Functions/Functions.sln --no-restore --configuration Release
+      - name: Build
+        run: dotnet build application/CohortManager/src/Functions/Functions.sln --no-restore --configuration Release
 
-      # - name: Run tests
-      #   run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
+      - name: Run tests
+        run: dotnet test application/CohortManager/src/Functions/Functions.sln --no-build --verbosity normal --configuration Release
 
       # - name: Print project paths
       #   run: |
@@ -79,28 +79,42 @@ jobs:
       #     projects=($(echo $projects))
       #     echo "Number of projects: ${#projects[@]}"
 
-      # - name: Publish Artifacts
-      #   run: |
-      #     projects=($(echo $projects))
-      #     while IFS= read -r project; do
-      #       echo "Processing $project ..."
+      - name: Publish Artifacts
+        run: |
+
+          for project in $projects; do
+            echo "Processing $project ..."
+            file_name=$(basename "${project%.csproj}")
+            echo "File name: $file_name"
+            output_dir="./publish/$file_name"
+            echo "Directory: $output_dir"
+
+            echo "===================================================================================================="
+            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            zip -r "${file_name}.zip" "$output_dir" || exit 1
+          done
+
+          # projects=($(echo $projects))
+          # while IFS= read -r project; do
+          #   echo "Processing $project ..."
             
-      #       file_name=$(basename "${project%.csproj}")
-      #       echo "File name: $file_name"
-      #       # output_dir="./publish/$file_name"
-      #       # echo "Directory: $output_dir"
+          #   file_name=$(basename "${project%.csproj}")
+          #   echo "File name: $file_name"
+          #   # output_dir="./publish/$file_name"
+          #   # echo "Directory: $output_dir"
 
-      #       # echo "===================================================================================================="
-      #       # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-      #       # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-      #       # zip -r "${file_name}.zip" "$output_dir" || exit 1
+          #   # echo "===================================================================================================="
+          #   # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+          #   # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          #   # zip -r "${file_name}.zip" "$output_dir" || exit 1
 
-      #     done <<< "$projects"
+          # done <<< "$projects"
 
-      # - name: List artifacts
-      #   run: |
-      #     cd publish
-      #     tree
+      - name: List artifacts
+        run: |
+          cd publish
+          tree
 
 
       # - name: Az CLI login
