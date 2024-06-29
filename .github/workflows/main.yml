@@ -79,7 +79,7 @@ jobs:
               --organization "https://dev.azure.com/josielbruk/" \
               --feed "josielbruk" \
               --name "$functionName" \
-              --version "1.0.0" \
+              --version "1.0.1" \
               --description "Zipped .NET codebase for $functionName" \
               --path .
           done
