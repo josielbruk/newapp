@@ -1,4 +1,3 @@
-
 name: Build and deploy ASP.Net Core app to an Azure Web App
 
 env:
@@ -22,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 2  # Ensure we have enough history to check the previous commit
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v2
@@ -37,13 +36,19 @@ jobs:
         id: changes
         run: |
           cd ${{ env.app_path }}
-          changed_files=$(git diff --name-only HEAD^ HEAD)
+          if git rev-parse HEAD^2 > /dev/null 2>&1; then
+            changed_files=$(git diff --name-only HEAD^ HEAD)
+          else
+            changed_files=$(git diff --name-only HEAD)
+          fi
           echo "Changed files: $changed_files"
           changed_functions=$(for file in $changed_files; do dirname $file; done | sort -u | grep -E '^[^/]+$')
           echo "Changed functions: $changed_functions"
-          echo "::set-output name=changed_functions::$changed_functions"
+          echo "::set-output name=changed_functions::${changed_functions}"
+        shell: bash
 
       - name: Build and test changed functions
+        if: steps.changes.outputs.changed_functions != ''
         run: |
           cd ${{ env.app_path }}
           for functionDir in ${{ steps.changes.outputs.changed_functions }}; do
@@ -54,6 +59,7 @@ jobs:
           done
 
       - name: Publish Artifacts
+        if: steps.changes.outputs.changed_functions != ''
         run: |
           cd ${{ env.app_path }}
           mkdir -p ./artifacts/
@@ -78,6 +84,7 @@ jobs:
         run: echo "::set-output name=short_hash::$(git rev-parse --short HEAD)"
 
       - name: Upload Artifacts to Azure DevOps
+        if: steps.changes.outputs.changed_functions != ''
         env:
           AZURE_DEVOPS_TOKEN: ${{ secrets.AZURE_DEVOPS_TOKEN }}
         run: |
@@ -94,6 +101,7 @@ jobs:
               --description "Zipped .NET codebase for $functionName" \
               --path "$zipFile"
           done
+
 
 
 
