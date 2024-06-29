@@ -93,6 +93,7 @@ jobs:
             dotnet publish "$project" -c Release -o "$output_dir" || exit 1
             echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
             zip -r "${file_name}.zip" "$output_dir" || exit 1
+            echo "zipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipz"
           done
 
           # projects=($(echo $projects))
