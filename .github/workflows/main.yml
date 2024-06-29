@@ -3,7 +3,7 @@ name: Build and deploy ASP.Net Core app to an Azure Web App
 env:
   DOTNET_VERSION: "8.0.x" # set this to the .NET Core version to use
   TAG: ${{ github.run_number }}
-
+  app_path: "application/CohortManager/src/Functions"
 on:
   push:
     branches: ["main"]
@@ -25,58 +25,31 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Find Projects
-        run: |
-          echo "projects<<EOF" >> $GITHUB_ENV
-          find . -name '*.csproj' -o -name '*.sln' | sort -u >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: ./CohortManager/src/Functions
 
-      # echo the content of $GITHUB_ENV to see the projects
-      # echo content of projects variable
-      - name: Projects to publish
+      - name: Build functions
         run: |
-          echo "Projects to publish: ${projects[@]}"
-          for project in $projects; do
-            echo "Project: $project"
+          cd ${{ env.app_path }}
+          for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
+            functionName=$(basename $functionDir)
+            echo "Building $functionName"
+            dotnet build --configuration Release $functionDir            
           done
 
-      # - name: Restore Dependencies
-      #   run: |
-      #     while IFS= read -r project; do
-      #       echo "Restoring dependencies for $project ..."
-      #       dotnet restore "$project"
-      #     done <<< "$projects"
-
-      # - name: Build and Test Projects
-      #   run: |
-      #     while IFS= read -r project; do
-      #       echo "Building $project ..."
-      #       dotnet build "$project" --configuration Release --no-restore
-      #       echo "Testing $project ..."
-      #       dotnet test "$project" --no-restore --verbosity normal
-      #     done <<< "$projects"
-
-      # - name: Publish Artifacts
-      #   run: |
-      #     for project in ${{ env.projects }}; do
-      #       output_dir=$(dirname "$project")/publish
-      #       echo "Publishing $project ..."
-      #       dotnet publish "$project" -c Release -o "$output_dir"
-      #       zip -r "${output_dir}.zip" "$output_dir"
-      # #     done
-      - name: Restore dependencies
-        run: dotnet restore application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj
-
-      - name: Build
-        run: dotnet build application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --configuration Release
-
-      - name: Run tests
-        run: dotnet test application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj --no-restore --verbosity normal
-
+      - name: Test functions
+        run: |
+          cd ${{ env.app_path }}
+          for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
+            functionName=$(basename $functionDir)
+            echo "Testing $functionName"            
+            dotnet test $functionDir
+          done
 
       - name: Publish Artifacts
         run: |
-          cd application/CohortManager/src/Functions
+          cd ${{ env.app_path }}
           for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
             functionName=$(basename $functionDir)
             dotnet publish --configuration Release --output ./output/$functionName $functionDir
@@ -84,90 +57,27 @@ jobs:
             mv $functionName.zip ./artifacts/
           done
 
-          # output_dir="./publish"
-          # project="application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj"
-          # file_name=$(basename "${project%.csproj}")
-          # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-          # echo "===================================================================================================="
-          # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-          # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-          # cd $output_dir
-          # zip -r "../${file_name}.zip" . || exit 1
-          # echo "zipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipz"
-          # cd ..
-          # echo "ls publish folder zip files"
-          # ls 
-
-          # for project in $projects; do
-          #   echo "Processing $project ..."
-          #   file_name=$(basename "${project%.csproj}")
-          #   echo "File name: $file_name"
-          #   output_dir="./publish/$file_name"
-          #   echo "Directory: $output_dir"
-
-            # echo "===================================================================================================="
-            # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-            # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            # zip -r "${file_name}.zip" "$output_dir" || exit 1
-            # echo "zipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipz"
-            echo "ls publish folder zip files"
-            ls $output_dir
-          # done
-
-          # projects=($(echo $projects))
-          # while IFS= read -r project; do
-          #   echo "Processing $project ..."
-            
-          #   file_name=$(basename "${project%.csproj}")
-          #   echo "File name: $file_name"
-          #   # output_dir="./publish/$file_name"
-          #   # echo "Directory: $output_dir"
-
-          #   # echo "===================================================================================================="
-          #   # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-          #   # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-          #   # zip -r "${file_name}.zip" "$output_dir" || exit 1
-
-          # done <<< "$projects"
-
-      # - name: Az CLI login
-      #   uses: azure/login@v1
-      #   with:
-      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
-      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-      #     allow-no-subscriptions: true
-      #     enable-AzPSSession: false
-      
-      - name: List files in the current directory
-        run: |
-          cd ./artifacts/
-          ls -la 
+      - name: Az CLI login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: false
 
       - name: Upload Artifacts to Azure DevOps
         env:
           AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
         run: |
-          az artifacts universal publish \
-            --organization "https://dev.azure.com/josielbruk/" \
-            --feed "josielbruk" \
-            --name "AddAggregationData" \
-            --version "1.0.0" \
-            --description "Zipped .NET codebase" \
-            --path "./AddAggregationData.zip"
-
-          # for project in "${projects[@]}"; do
-          #   artifact_zip=$(dirname "$project")/publish.zip
-          #   if [[ -f "$artifact_zip" ]]; then
-          #     echo "Uploading $artifact_zip to Azure DevOps..."
-          #     az artifacts universal publish \
-          #       --organization https://dev.azure.com/josielbruk/ \
-          #       --feed josielbruk \
-          #       --name "$(basename "$project")" \
-          #       --version "0.0.${{ github.run_number }}" \
-          #       --description "Artifact for $project" \
-          #       --path "$artifact_zip"
-          #   else
-          #     echo "No artifact found for $project."
-          #   fi
-          # done
+          cd CohortManager/src/Functions/artifacts
+          for zipFile in *.zip; do
+            functionName=$(basename $zipFile .zip)
+            echo "Uploading $zipFile to Azure Artifacts"
+            az artifacts universal publish \
+              --organization "https://dev.azure.com/josielbruk/" \
+              --feed "josielbruk" \
+              --name "$functionName" \
+              --version "1.0.0" \
+              --description "Zipped .NET codebase for $functionName" \
+              --path "$zipFile"
+          done
