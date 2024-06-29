@@ -8,14 +8,13 @@
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <!-- Update the version to the latest that supports .NET 8 and Azure Functions v4 -->
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="Latest_Supported_Version" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="Latest_Supported_Version" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="Latest_Supported_Version" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="Latest_Supported_Version" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="Latest_Supported_Version" OutputItemType="Analyzer"/>
-    <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="Latest_Supported_Version" />
-    <PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" Version="Latest_Supported_Version" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.21.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http.AspNetCore" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.0" OutputItemType="Analyzer"/>
+    <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.ApplicationInsights" Version="1.2.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
