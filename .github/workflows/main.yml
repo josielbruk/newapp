@@ -76,19 +76,27 @@ jobs:
 
       - name: Publish Artifacts
         run: |
-          output_dir="./publish"
-          project="application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj"
-          file_name=$(basename "${project%.csproj}")
-          dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-          echo "===================================================================================================="
-          dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-          echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-          cd $output_dir
-          zip -r "../${file_name}.zip" . || exit 1
-          echo "zipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipz"
-          cd ..
-          echo "ls publish folder zip files"
-          ls 
+          cd application/CohortManager/src/Functions
+          for functionDir in $(find . -name '*.csproj' -exec dirname {} \;); do
+            functionName=$(basename $functionDir)
+            dotnet publish --configuration Release --output ./output/$functionName $functionDir
+            zip -r $functionName.zip ./output/$functionName
+            mv $functionName.zip ./artifacts/
+          done
+
+          # output_dir="./publish"
+          # project="application/CohortManager/src/Functions/CohortDistribution/AggregateDataServices/AddAggregationData/AddAggregationData.csproj"
+          # file_name=$(basename "${project%.csproj}")
+          # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+          # echo "===================================================================================================="
+          # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+          # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          # cd $output_dir
+          # zip -r "../${file_name}.zip" . || exit 1
+          # echo "zipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipzipz"
+          # cd ..
+          # echo "ls publish folder zip files"
+          # ls 
 
           # for project in $projects; do
           #   echo "Processing $project ..."
@@ -123,16 +131,18 @@ jobs:
 
           # done <<< "$projects"
 
-      - name: Az CLI login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          allow-no-subscriptions: true
-          enable-AzPSSession: false
+      # - name: Az CLI login
+      #   uses: azure/login@v1
+      #   with:
+      #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      #     allow-no-subscriptions: true
+      #     enable-AzPSSession: false
       
       - name: List files in the current directory
-        run: ls -la 
+        run: |
+          cd ./artifacts/
+          ls -la 
 
       - name: Upload Artifacts to Azure DevOps
         env:
