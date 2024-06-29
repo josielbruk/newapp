@@ -81,10 +81,11 @@ jobs:
           projects=($(echo $projects))
           while IFS= read -r project; do
             echo "Processing $project ..."
-            output_dir="./publish"
-            echo "Directory: $output_dir"
+            
             file_name=$(basename "${project%.csproj}")
             echo "File name: $file_name"
+            output_dir="./publish/$file_name"
+            echo "Directory: $output_dir"
 
             echo "===================================================================================================="
             dotnet publish "$project" -c Release -o "$output_dir" || exit 1
@@ -94,7 +95,9 @@ jobs:
           done <<< "$projects"
 
       - name: List artifacts
-        run: ls -la ./publish
+        run: |
+          cd publish
+          tree
 
 
       # - name: Az CLI login
