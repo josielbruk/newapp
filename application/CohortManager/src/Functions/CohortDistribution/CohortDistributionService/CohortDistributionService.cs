@@ -4,25 +4,31 @@ using Microsoft.Azure.Functions.Worker.Http;
 using System.Threading.Tasks;
 
 namespace NHS.CohortManager.CohortDistributionService;
-
+public static class ServiceExtensions
+{
+    public static void AddAggregationDataService(this IServiceCollection services)
+    {
+        // Assuming AddAggregationDataService is meant to add a service to the DI container
+        services.AddTransient<IAggregationDataService, AggregationDataService>();
+    }
+}
 
 public class CohortDistributionService
 {
 
     [Function("CohortDistributionService")]
-    public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
+    public async Task<HttpResponseData> Run(HttpRequestData req)
     {
-        // call participant data service
-
-        // call service provider allocation service
-            // provide postcode, screening service
-
-        // call service provider transform
-            // provide participant, demographic, service provider
-
-        // call add aggregation data service
-        await AddAggregationDataService.Run();
-
+        if (someCondition)
+        {
+            // Do something
+            return req.CreateResponse(HttpStatusCode.OK);
+        }
+        else
+        {
+            // Do something else
+            return req.CreateResponse(HttpStatusCode.BadRequest);
+        }
     }
 }
 
