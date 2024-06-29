@@ -74,7 +74,7 @@ jobs:
         env:
           AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
         run: |
-          cd CohortManager/src/Functions/artifacts
+          cd ${{ env.app_path }}/artifacts
           for zipFile in *.zip; do
             functionName=$(basename $zipFile .zip)
             echo "Uploading $zipFile to Azure Artifacts"
