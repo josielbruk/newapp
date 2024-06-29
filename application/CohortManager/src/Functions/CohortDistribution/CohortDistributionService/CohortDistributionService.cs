@@ -21,6 +21,7 @@ public class CohortDistributionService
             // provide participant, demographic, service provider
 
         // call add aggregation data service
+        await AddAggregationDataService.Run();
 
     }
 }
