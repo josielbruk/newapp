@@ -81,28 +81,16 @@ jobs:
           projects=($(echo $projects))
           while IFS= read -r project; do
             echo "Processing $project ..."
-            output_dir="/publish"
+            output_dir="./publish"
             echo "Directory: $output_dir"
             file_name=$(basename "${project%.csproj}")
             echo "File name: $file_name"
 
+            echo "===================================================================================================="
+            dotnet publish "$project" -c Release -o "$output_dir" || exit 1
+            echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            zip -r "${file_name}.zip" "$output_dir" || exit 1
 
-
-
-
-            # output_dir=$(dirname "/home/runner/work/newapp/newapp${project:1}")
-            # dir_path="${csproj_path%.csproj}"
-            # output_dir="${dir_path}/publish"
-            # echo "Directory: $output_dir"
-            # dir_without_publish="${output_dir%/publish}"
-            # zip_name=$(basename "$dir_without_publish")
-            # echo "Zip name: $zip_name"
-            # echo "===================================================================================================="
-            # dotnet publish "$project" -c Release -o "$output_dir" || exit 1
-            # echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-            # zip -r "${zip_name}.zip" "$output_dir" || exit 1
-            # cd /home/runner/work/newapp/newapp
-            # echo "Current directory after publishing: $(pwd)"
           done <<< "$projects"
 
       # - name: Az CLI login
