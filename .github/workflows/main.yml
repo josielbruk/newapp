@@ -84,7 +84,7 @@ jobs:
               --name "$functionName" \
               --version "1.0.0" \
               --description "Zipped .NET codebase for $functionName" \
-              --path "$zipFile"
+              --path .
             echo "****Uploaded $zipFile to Azure Artifacts***"
             ls -la
           done
