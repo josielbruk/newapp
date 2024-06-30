@@ -204,9 +204,9 @@ jobs:
             echo "Uploading $zipFile to Azure Artifacts"
             az artifacts universal publish \
               --organization "https://dev.azure.com/josielbruk/" \
-              --project "newapp" \
+              --project="newapp" \
               --scope project \
-              --feed "newapp" \
+              --feed newapp \
               --name "$functionName" \
               --version "0.0.2" \
               --description "Function $functionName\nCommit URL: $COMMIT_URL" \
