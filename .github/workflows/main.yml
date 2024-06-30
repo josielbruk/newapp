@@ -137,36 +137,15 @@ permissions:
   id-token: write
 
 jobs:
-  metadata:
-    name: "Set CI/CD metadata"
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
-    outputs:
-      build_datetime_london: ${{ steps.variables.outputs.build_datetime_london }}
-      build_datetime: ${{ steps.variables.outputs.build_datetime }}
-      build_timestamp: ${{ steps.variables.outputs.build_timestamp }}
-      build_epoch: ${{ steps.variables.outputs.build_epoch }}
-      dotnet_version: ${{ steps.variables.outputs.dotnet_version }}
-      version: ${{ steps.variables.outputs.version }}
   build:
     name: Build
     runs-on: ubuntu-latest
+    
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2  # Ensure we have enough history to check the previous commit
-      - name: "Set CI/CD variables"
-        id: variables
-        run: |
-          datetime=$(date -u +'%Y-%m-%dT%H:%M:%S%z')
-          BUILD_DATETIME=$datetime make version-create-effective-file
-          echo "build_datetime_london=$(TZ=Europe/London date --date=$datetime +'%Y-%m-%dT%H:%M:%S%z')" >> $GITHUB_OUTPUT
-          echo "build_datetime=$datetime" >> $GITHUB_OUTPUT
-          echo "build_timestamp=$(date --date=$datetime -u +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
-          echo "build_epoch=$(date --date=$datetime -u +'%s')" >> $GITHUB_OUTPUT
-          echo "dotnet_version=$(grep "^dotnet" .tool-versions | cut -f2 -d' ')" >> $GITHUB_OUTPUT
-          echo "version=$(head -n 1 .version 2> /dev/null || echo unknown)" >> $GITHUB_OUTPUT
-
+          
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v2
         with:
@@ -216,6 +195,7 @@ jobs:
       - name: Upload Artifacts to Azure DevOps
         env:
           AZURE_DEVOPS_TOKEN: ${{ steps.azure-auth.outputs.FEDERATED_TOKEN }}
+          COMMIT_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
         run: |
           cd ${{ env.app_path }}/artifacts
           for zipFile in *.zip; do
@@ -227,6 +207,6 @@ jobs:
               --feed "josielbruk" \
               --name "$functionName" \
               --version "1.0.3" \
-              --description "Function $functionName n\ Details: $GITHUB_OUTPUT" \
+              --description "Function $functionName\nDetails: $GITHUB_OUTPUT\nCommit URL: $COMMIT_URL" \
               --path .
           done
