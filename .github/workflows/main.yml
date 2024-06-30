@@ -202,8 +202,8 @@ jobs:
             az artifacts universal publish \
               --organization "https://dev.azure.com/josielbruk/" \
               --project="newapp" \
-              --scope project \
-              --feed newapp \
+              --scope organization \
+              --feed newapp_artifacts \
               --name "$functionName" \
               --version "0.0.2" \
               --description "Function $functionName\nCommit URL: $COMMIT_URL" \
