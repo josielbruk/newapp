@@ -202,7 +202,6 @@ jobs:
             az artifacts universal publish \
               --organization "https://dev.azure.com/josielbruk/" \
               --project="newapp" \
-              --scope organization \
               --feed newapp_artifacts \
               --name "$functionName" \
               --version "0.0.2" \
