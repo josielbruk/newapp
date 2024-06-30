@@ -199,7 +199,7 @@ jobs:
             echo "Uploading $zipFile to Azure Artifacts"
             az artifacts universal publish \
               --organization "https://dev.azure.com/josielbruk/" \
-              --feed "josielbruk" \
+              --feed "josielbruk_feed" \
               --name "$functionName" \
               --version "0.0.2" \
               --description "Function $functionName" \
