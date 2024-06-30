@@ -204,6 +204,8 @@ jobs:
             echo "Uploading $zipFile to Azure Artifacts"
             az artifacts universal publish \
               --organization "https://dev.azure.com/josielbruk/" \
+              --project "newapp" \
+              --scope project \
               --feed "newapp" \
               --name "$functionName" \
               --version "0.0.2" \
