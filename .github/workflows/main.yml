@@ -208,7 +208,7 @@ jobs:
               --scope project \
               --feed "newapp" \
               --name "$functionName" \
-              --version "0.0.1" \
+              --version "0.0.2" \
               --description "Function $functionName\nCommit URL: $COMMIT_URL" \
               --path .
           done
