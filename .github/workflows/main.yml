@@ -202,6 +202,6 @@ jobs:
               --feed "josielbruk" \
               --name "$functionName" \
               --version "0.0.1" \
-              --description "Function $functionName" \ #\nCommit URL: $COMMIT_URL" \
+              --description "Function $functionName" \
               --path .
           done
