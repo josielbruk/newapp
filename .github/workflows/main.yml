@@ -203,7 +203,7 @@ jobs:
               --scope project \
               --feed "josielbruk_feed" \
               --name "$functionName" \
-              --version "0.0.3" \
+              --version "0.0.4" \
               --description "Function $functionName\nCommit URL: $COMMIT_URL" \
               --path .
           done
