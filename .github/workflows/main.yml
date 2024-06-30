@@ -140,8 +140,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 2 # Ensure we have enough history to check the previous commit
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v2
@@ -203,7 +201,7 @@ jobs:
               --organization "https://dev.azure.com/josielbruk/" \
               --feed newapp_artifacts \
               --name "$functionName" \
-              --version "0.0.2" \
+              --version "0.0.1" \
               --description "Function $functionName\nCommit URL: $COMMIT_URL" \
               --path .
           done
