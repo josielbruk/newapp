@@ -206,7 +206,7 @@ jobs:
               --organization "https://dev.azure.com/josielbruk/" \
               --feed "josielbruk" \
               --name "$functionName" \
-              --version "1.0.0" \
+              --version "1.1.0" \
               --description "Function $functionName\nCommit URL: $COMMIT_URL" \
               --path .
           done
