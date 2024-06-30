@@ -145,7 +145,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2  # Ensure we have enough history to check the previous commit
-          
+
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v2
         with:
@@ -207,6 +207,6 @@ jobs:
               --feed "josielbruk" \
               --name "$functionName" \
               --version "1.0.3" \
-              --description "Function $functionName\nDetails: $GITHUB_OUTPUT\nCommit URL: $COMMIT_URL" \
+              --description "Function $functionName\nCommit URL: $COMMIT_URL" \
               --path .
           done
