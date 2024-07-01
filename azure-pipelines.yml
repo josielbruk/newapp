@@ -11,25 +11,25 @@ steps:
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
-        echo $(System.AccessToken) | az devops login
-        az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "*" --path "app"
-        az acr login josielacr.azurecr.io
+        # echo $(System.AccessToken) | az devops login
+        # az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "*" --path "app"
+        az acr login -n josielacr.azurecr.io
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)  
 
-  - task: UniversalPackages@0
-    displayName: Download a Universal Package
-    inputs:
-      command: download
-      vstsFeed: 'josielbruk'
-      vstsFeedPackage: 'my-first-package'
-      vstsPackageVersion: '0.0.37'
-      downloadDirectory: '$(Build.SourcesDirectory)\DownloadedFromArtifact'
+  # - task: UniversalPackages@0
+  #   displayName: Download a Universal Package
+  #   inputs:
+  #     command: download
+  #     vstsFeed: 'josielbruk'
+  #     vstsFeedPackage: 'my-first-package'
+  #     vstsPackageVersion: '0.0.37'
+  #     downloadDirectory: '$(Build.SourcesDirectory)\DownloadedFromArtifact'
   
-  - script: |
-      echo "Listing files"
-      tree
-    displayName: "Listing the content of the current folder"
+  # - script: |
+  #     echo "Listing files"
+  #     tree
+  #   displayName: "Listing the content of the current folder"
   
   - task: AzureFunctionAppContainer@1
     inputs:
