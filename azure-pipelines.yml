@@ -37,7 +37,7 @@ steps:
       appName: containerfunctionjosiel # string. Required. App name. 
       deployToSlotOrASE: true #false # boolean. Deploy to Slot or App Service Environment. Default: false.
       resourceGroupName: containerFunction # string. Required when deployToSlotOrASE = true. Resource group. 
-      slotName: 'containerfunctionjosiel-dev' # string. Required when deployToSlotOrASE = true. Slot. Default: production.
+      slotName: 'dev' # string. Required when deployToSlotOrASE = true. Slot. Default: production.
       imageName: josielacr.azurecr.io/addaggregationdata:latest # string. Required. Image name. 
       #containerCommand: # string. Startup command. 
     # Application and Configuration Settings
