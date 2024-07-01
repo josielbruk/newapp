@@ -13,6 +13,7 @@ steps:
       inlineScript: |
         echo $(System.AccessToken) | az devops login
         az artifacts universal download --organization "https://dev.azure.com/josielbruk" --feed "josielbruk" --name "my-first-package" --version "*" --path "app"
+        az acr login josielacr.azurecr.io
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)  
 
@@ -29,3 +30,16 @@ steps:
       echo "Listing files"
       tree
     displayName: "Listing the content of the current folder"
+  
+  - task: AzureFunctionAppContainer@1
+    inputs:
+      azureSubscription: 'e421e2dc-1a19-4a76-8bc5-310b8c5f03ef' # string. Required. Azure subscription. 
+      appName: containerfunctionjosiel # string. Required. App name. 
+      deployToSlotOrASE: true #false # boolean. Deploy to Slot or App Service Environment. Default: false.
+      resourceGroupName: containerFunction # string. Required when deployToSlotOrASE = true. Resource group. 
+      slotName: 'containerfunctionjosiel-dev' # string. Required when deployToSlotOrASE = true. Slot. Default: production.
+      imageName: josielacr.azurecr.io/addaggregationdata:latest # string. Required. Image name. 
+      #containerCommand: # string. Startup command. 
+    # Application and Configuration Settings
+      #appSettings: # string. App settings. 
+      #configurationStrings: # string. Configuration settings.
